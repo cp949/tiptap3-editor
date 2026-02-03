@@ -1,7 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const ROOT_DIR = process.cwd();
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const ROOT_DIR = path.resolve(__dirname, "..");
 const PKG_DIR = path.join(ROOT_DIR, "packages/tiptap3-editor");
 const DOCS = ["README.md", "STYLE_GUIDE.md"];
 const GITHUB_BASE_URL = "https://github.com/cp949/tiptap3-editor/blob/main/";
