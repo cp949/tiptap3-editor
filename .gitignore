@@ -62,3 +62,7 @@ _work
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Package Docs (Auto-generated from root)
+packages/**/README.md
+packages/**/STYLE_GUIDE.md
