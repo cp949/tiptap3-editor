@@ -2,12 +2,18 @@
   "name": "@cp949/tiptap3-editor",
   "version": "1.0.0",
   "description": "Tiptap 3.x based React Editor Library",
+  "type": "module",
+  "author": "cp949",
+  "license": "ISC",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -19,6 +25,7 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "tsc && vite build",
+    "deploy": "pnpm build && pnpm publish --access public --no-git-checks",
     "preview": "vite preview",
     "lint": "biome lint .",
     "check-types": "tsc --noEmit"
@@ -29,9 +36,6 @@
     "editor",
     "wysiwyg"
   ],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
   "peerDependencies": {
     "@tiptap/pm": "^3.0.0",
     "@tiptap/react": "^3.0.0",
