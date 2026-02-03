@@ -1,0 +1,76 @@
+:root {
+  /* 
+   * Tiptap3 Editor Design Tokens 
+   * Default theme: Clean & Modern (Mantine-inspired)
+   * Reference: Open Color Palette (Mantine default)
+   */
+
+  /* Brand Colors */
+  --te-primary: #228be6;          /* Mantine Blue 6 */
+  --te-primary-focus: rgba(34, 139, 230, 0.15);
+  --te-primary-light: #e7f5ff;    /* Mantine Blue 0 (Active Background) */
+  --te-primary-text: #1971c2;     /* Mantine Blue 8 (Active Text) */
+
+  /* Functional Colors */
+  --te-error: #fa5252;
+  --te-warning: #fab005;
+  --te-success: #40c057;
+
+  /* Surfaces & Backgrounds */
+  --te-bg-editor: #ffffff;
+  --te-bg-toolbar: #ffffff;
+  --te-bg-toolbar-hover: #f8f9fa; /* Mantine Gray 0 */
+  --te-bg-tooltip: #212529;
+
+  /* Borders & Dividers */
+  --te-border: #ced4da;           /* Mantine Gray 4 */
+  --te-border-focus: #228be6;
+
+  /* Typography Colors */
+  --te-text-primary: #212529;     /* Mantine Gray 9 */
+  --te-text-secondary: #868e96;   /* Mantine Gray 6 */
+  --te-text-muted: #adb5bd;       /* Mantine Gray 5 */
+  --te-text-inverse: #ffffff;
+
+  /* Spacing & Layout */
+  --te-radius: 0.25rem;           /* 4px - Default radius */
+  --te-spacing-sm: 0.5rem;        /* 8px */
+  --te-spacing-md: 1rem;          /* 16px */
+
+  /* Shadows */
+  /* Mantine uses flat design (borders), removing shadows by default */
+  --te-shadow-sm: none; 
+  --te-shadow: none;
+}
+
+.te-prose {
+    --tw-prose-body: var(--te-text-primary);
+    --tw-prose-headings: var(--te-text-primary);
+    --tw-prose-lead: var(--te-text-secondary);
+    --tw-prose-links: var(--te-primary);
+    --tw-prose-bold: var(--te-text-primary);
+    --tw-prose-counters: var(--te-text-secondary);
+    --tw-prose-bullets: var(--te-text-secondary);
+    --tw-prose-hr: var(--te-border);
+    --tw-prose-quotes: var(--te-text-primary);
+    --tw-prose-quote-borders: var(--te-border);
+    --tw-prose-captions: var(--te-text-secondary);
+    --tw-prose-code: var(--te-primary);
+    --tw-prose-pre-code: var(--te-text-inverse);
+    --tw-prose-pre-bg: var(--te-bg-tooltip);
+    --tw-prose-th-borders: var(--te-border);
+    --tw-prose-td-borders: var(--te-border);
+}
+
+/* Dark Mode Support (Future-proof) */
+/* Dark Mode Support */
+[data-theme="dark"] .te-editor-root,
+.dark .te-editor-root,
+.te-editor-root.dark {
+  --te-bg-editor: #25262b;
+  --te-bg-toolbar: #25262b;
+  --te-bg-toolbar-hover: #2c2e33;
+  --te-border: #373a40;
+  --te-text-primary: #c1c2c5;
+  --te-text-secondary: #909296;
+}

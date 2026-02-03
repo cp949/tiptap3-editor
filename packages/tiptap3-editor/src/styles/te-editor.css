@@ -1,0 +1,91 @@
+@import './variables.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.te-editor-root {
+  /* Scoped Reset for MUI compatibility */
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  line-height: 1.5;
+  color: inherit;
+}
+
+/* Ensure Tiptap editor has focus outline */
+.ProseMirror:focus {
+  outline: none;
+}
+
+/* Basic sizing */
+.ProseMirror {
+  min-height: 15rem;
+  padding: 1rem;
+}
+
+/* Table Styles */
+.te-editor-root table {
+  border-collapse: collapse;
+  margin: 0;
+  overflow: hidden;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.te-editor-root table td,
+.te-editor-root table th {
+  border: 2px solid #ced4da;
+  box-sizing: border-box;
+  min-width: 1em;
+  padding: 3px 5px;
+  position: relative;
+  vertical-align: top;
+}
+
+.te-editor-root table th {
+  background-color: #f1f3f5;
+  font-weight: bold;
+  text-align: left;
+}
+
+.te-editor-root .selectedCell:after {
+  background: rgba(200, 200, 255, 0.4);
+  bottom: 0;
+  content: "";
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+}
+
+.te-editor-root .column-resize-handle {
+  background-color: #adf;
+  bottom: -2px;
+  pointer-events: none;
+  position: absolute;
+  right: -2px;
+  top: 0;
+  width: 4px;
+}
+
+.tippy-box {
+  z-index: 50 !important;
+}
+
+.resize-cursor {
+  cursor: col-resize;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}

@@ -1,0 +1,47 @@
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  margin: 0;
+  padding: 0;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Mantine Tiptap Theme Overrides - REMOVED to allow library styles to work */
+/* The library now supports these styles natively via variables and classes */
+
+/* 
+ * If you want to customize globally, use the :root variables as shown below,
+ * but do NOT use !important on classes if you want Dark Mode to work.
+ */
+:root {
+  /* Example: Use Mantine Gray Colors if desired */
+  /* --te-border: #ced4da; */
+}
+
+
