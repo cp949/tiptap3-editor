@@ -91,10 +91,10 @@ function App() {
 
 Playground 앱에서 다양한 사용 예시를 직접 확인하고 코드를 참고할 수 있습니다.
 
-- **[Full Editor](apps/playground/components/examples/RichEditorExample.tsx)**: 모든 기능이 활성화된 에디터.
-- **[Minimal / Notion Style](apps/playground/components/examples/styles/NotionStyleExample.tsx)**: 툴바를 커스터마이징하고 미니멀한 스타일 적용.
-- **[Save Button Integration](apps/playground/components/examples/SaveButtonExample.tsx)**: 외부 버튼으로 에디터 상태(HTML) 가져오기.
-- **[Dark Mode](apps/playground/components/examples/styles/DarkThemeExample.tsx)**: 다크 모드 적용 예시.
+- **[Full Editor](https://github.com/cp949/tiptap3-editor/blob/main/apps/playground/components/examples/RichEditorExample.tsx)**: 모든 기능이 활성화된 에디터.
+- **[Minimal / Notion Style](https://github.com/cp949/tiptap3-editor/blob/main/apps/playground/components/examples/styles/NotionStyleExample.tsx)**: 툴바를 커스터마이징하고 미니멀한 스타일 적용.
+- **[Save Button Integration](https://github.com/cp949/tiptap3-editor/blob/main/apps/playground/components/examples/SaveButtonExample.tsx)**: 외부 버튼으로 에디터 상태(HTML) 가져오기.
+- **[Dark Mode](https://github.com/cp949/tiptap3-editor/blob/main/apps/playground/components/examples/styles/DarkThemeExample.tsx)**: 다크 모드 적용 예시.
 
 ## 스타일 커스터마이징 (Style Customization)
 
