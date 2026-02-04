@@ -1,4 +1,4 @@
-# Umo 확장 전환 가이드 & 로드맵
+# Umo-extensions 전환 가이드 & 로드맵
 
 이 문서는 `umo-editor`의 우수한 기능들을 `@cp949/tiptap3-editor`로 전환하기 위한 핵심 정보를 담고 있습니다. 매번 소스 전체를 탐색하지 않고도 효율적으로 전환 작업을 수행할 수 있도록 돕습니다.
 
@@ -6,7 +6,7 @@
 
 ## 1. Umo Editor 핵심 소스 위치 (`_work/thirdparty/umo-editor`)
 
-확장 기능을 분석하고 가져올 때 참고해야 할 주요 경로는 다음과 같습니다.
+extensions 기능을 분석하고 가져올 때 참고해야 할 주요 경로는 다음과 같습니다.
 
 ### 🔹 확장 로직 (Extension Logic)
 
@@ -28,9 +28,9 @@
 
 ---
 
-## 2. 주요 확장별 참조 파일 (Key Files)
+## 2. 주요 extensions별 참조 파일 (Key Files)
 
-| 기능           | 확장 로직 위치                 | UI 구성 참조 (`menus.vue`)                         | 중요 파일                                              |
+| 기능           | extensions 로직 위치           | UI 구성 참조 (`menus.vue`)                         | 중요 파일                                              |
 | :------------- | :----------------------------- | :------------------------------------------------- | :----------------------------------------------------- |
 | **Table**      | `src/extensions/table/`        | `<template v-else-if="editor?.isActive('table')">` | `cell.ts` (속성 관리), `index.ts` (엑셀 붙여넣기 로직) |
 | **Image**      | `src/extensions/image/`        | `<template v-if="editor?.isActive('image') ...">`  | `image.ts` (리사이징, 업로드 핸들링)                   |
@@ -39,7 +39,7 @@
 
 ---
 
-## 3. 확장 전환 로드맵 (Checklist)
+## 3. extensions 전환 로드맵 (Checklist)
 
 현재 완료된 항목과 향후 진행할 항목을 관리합니다.
 
@@ -50,9 +50,9 @@
 - [x] **Typography+**: TextAlign, LineHeight (일부)
 - [ ] **Text Styling (Basic & Advanced)**
   - [x] 기본적인 굵게, 기울임 등 (StarterKit)
-  - [ ] **글자색 (Text Color)**: 컬러 피커 UI 및 최근 사용 색상 관리
-  - [ ] **텍스트 배경색 (Highlight)**: 컬러 피커 및 단일 색상 하이라이트
-  - [ ] **고급 하이라이트 (Presets)**: 글자색/배경색 동시 적용 프리셋 (Umo 방식)
+  - [x] **글자색 (Text Color)**: 컬러 피커 UI 및 최근 사용 색상 관리
+  - [x] **텍스트 배경색 (Highlight)**: 컬러 피커 및 단일 색상 하이라이트
+  - [x] **고급 하이라이트 (Presets)**: 글자색/배경색 동시 적용 프리셋 (Umo 방식)
 - [ ] **Link (Basic Parity)**
   - [x] 자동 링크(autolink) 및 기본 입력
   - [ ] 인터랙티브 팝업 기반 링크 관리 (Umo 방식)

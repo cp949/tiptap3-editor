@@ -35,5 +35,19 @@ export default {
       }
     },
   },
-  plugins: [typography],
+  plugins: [
+    typography({
+      className: "te-prose",
+    }),
+    function ({ addBase, theme }) {
+      addBase({
+        '.te-prose strong': {
+          color: 'inherit',
+        },
+        '.te-prose b': {
+            color: 'inherit',
+        }
+      });
+    },
+  ],
 };

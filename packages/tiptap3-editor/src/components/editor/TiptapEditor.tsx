@@ -49,6 +49,7 @@ import {
   LinkControl,
   ColorControl,
   HighlightControl,
+  HighlightPresetControl,
 } from "./controls";
 
 export interface TiptapEditorProps {
@@ -319,5 +320,6 @@ export const TiptapEditor = Object.assign(TiptapEditorRoot, {
   Link: LinkControl,
   Color: ColorControl,
   Highlight: HighlightControl,
+  HighlightPreset: HighlightPresetControl,
   TableBubbleMenu: TableBubbleMenu,
 });

@@ -28,8 +28,10 @@ import {
 
 import { useTiptapEditorContext } from "../TiptapEditorContext";
 import { Control, type ControlProps } from "./Control";
+import { ColorPicker } from "./ColorPicker";
 import { TableGridPicker } from "./TableGridPicker";
 import * as Popover from "@radix-ui/react-popover";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 
 // Typography
 export const BoldControl = (props: ControlProps) => {
@@ -398,35 +400,187 @@ export const LinkControl = (props: ControlProps) => {
 
 export const ColorControl = (props: ControlProps) => {
   const { editor } = useTiptapEditorContext();
+  const [open, setOpen] = useState(false);
+
+  const currentColor = editor?.getAttributes("textStyle").color;
+
+  const handleColorChange = (color: string) => {
+    if (color) {
+      editor?.chain().focus().setColor(color).run();
+    } else {
+      editor?.chain().focus().unsetColor().run();
+    }
+    setOpen(false);
+  };
+
   return (
-    <Control
-      onClick={() => {
-        const color = window.prompt("Color (hex or name)", editor?.getAttributes("textStyle").color);
-        if (color) {
-            editor?.chain().focus().setColor(color).run();
-        } else if (color === "") {
-            editor?.chain().focus().unsetColor().run();
-        }
-      }}
-       isActive={!!editor?.getAttributes("textStyle").color}
-      title="Text Color"
-      {...props}
-    >
-      <Palette size={18} style={{ color: editor?.getAttributes("textStyle").color }} />
-    </Control>
+    <Popover.Root open={open} onOpenChange={setOpen}>
+      <Popover.Trigger asChild>
+        <Control
+          isActive={!!currentColor}
+          title="Text Color"
+          {...props}
+        >
+          <div className="te-flex te-flex-col te-items-center te-justify-center te-relative">
+            <Palette size={16} />
+            <div 
+                className="te-h-[3px] te-w-full te-absolute te-bottom-[-2px] te-rounded-full" 
+                style={{ backgroundColor: currentColor || 'transparent' }}
+            />
+          </div>
+        </Control>
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Content
+          className="te-z-[100] te-mt-1 te-shadow-lg te-border te-border-editor-border te-bg-editor-toolbar te-rounded te-outline-none te-animate-in te-fade-in te-zoom-in-95"
+          sideOffset={5}
+          align="start"
+          onFocusOutside={(e) => e.preventDefault()}
+        >
+          <ColorPicker
+            color={currentColor}
+            onChange={handleColorChange}
+            storageKey="tiptap-recent-colors-text"
+          />
+        </Popover.Content>
+      </Popover.Portal>
+    </Popover.Root>
   );
 };
 
 export const HighlightControl = (props: ControlProps) => {
   const { editor } = useTiptapEditorContext();
+  const [open, setOpen] = useState(false);
+
+  const currentHighlight = editor?.getAttributes("highlight").color;
+
+  const handleColorChange = (color: string) => {
+    if (color) {
+      editor?.chain().focus().setHighlight({ color }).run();
+    } else {
+      editor?.chain().focus().unsetHighlight().run();
+    }
+    setOpen(false);
+  };
+
   return (
-    <Control
-      onClick={() => editor?.chain().focus().toggleHighlight().run()}
-      isActive={editor?.isActive("highlight")}
-      title="Highlight"
-      {...props}
-    >
-      <Highlighter size={18} />
-    </Control>
+    <Popover.Root open={open} onOpenChange={setOpen}>
+      <Popover.Trigger asChild>
+        <Control
+          isActive={!!currentHighlight}
+          title="Highlight Color"
+          {...props}
+        >
+           <div className="te-flex te-flex-col te-items-center te-justify-center te-relative">
+            <Highlighter size={16} />
+            <div 
+                className="te-h-[3px] te-w-full te-absolute te-bottom-[-2px] te-rounded-full" 
+                style={{ backgroundColor: currentHighlight || 'transparent' }}
+            />
+          </div>
+        </Control>
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Content
+          className="te-z-[100] te-mt-1 te-shadow-lg te-border te-border-editor-border te-bg-editor-toolbar te-rounded te-outline-none te-animate-in te-fade-in te-zoom-in-95"
+          sideOffset={5}
+          align="start"
+          onFocusOutside={(e) => e.preventDefault()}
+        >
+          <ColorPicker
+            color={currentHighlight}
+            onChange={handleColorChange}
+            storageKey="tiptap-recent-colors-highlight"
+          />
+        </Popover.Content>
+      </Popover.Portal>
+    </Popover.Root>
   );
+};
+
+interface PresetOption {
+    label: string;
+    value: number;
+    bgcolor?: string;
+    color?: string;
+    divider?: boolean;
+}
+
+const HIGHLIGHT_PRESETS: PresetOption[] = [
+    { label: 'Yellow Background', value: 1, bgcolor: '#ffff8a' },
+    { label: 'Green Background', value: 2, bgcolor: '#a7ffa7' },
+    { label: 'Purple Background', value: 3, bgcolor: '#e6afff' },
+    { label: 'Blue Background', value: 4, bgcolor: '#83d3ff', divider: true },
+    { label: 'Red Text', value: 5, color: '#e71313' },
+    { label: 'Green Text', value: 6, color: '#128a00', divider: true },
+];
+
+export const HighlightPresetControl = (props: ControlProps) => {
+    const { editor } = useTiptapEditorContext();
+    
+    const handleSelect = (item: PresetOption) => {
+        if (item.bgcolor) {
+            editor?.chain().focus().setHighlight({ color: item.bgcolor }).run();
+        }
+        if (item.color) {
+            editor?.chain().focus().setColor(item.color).run();
+        }
+    };
+    
+    const handleClear = () => {
+        editor?.chain().focus().unsetHighlight().run();
+        editor?.chain().focus().unsetColor().run();
+    };
+
+    return (
+     <DropdownMenu.Root>
+      <DropdownMenu.Trigger asChild>
+        <Control title="Highlight Presets" {...props}>
+             <div className="te-flex te-items-center te-justify-center te-font-bold te-text-lg">
+                A
+            </div>
+        </Control>
+      </DropdownMenu.Trigger>
+
+       <DropdownMenu.Portal>
+          <DropdownMenu.Content
+             className="te-z-[100] te-min-w-[180px] te-bg-editor-toolbar te-rounded-md te-border te-border-editor-border te-p-1 te-shadow-md te-animate-in te-fade-in te-zoom-in-95"
+             sideOffset={5}
+             align="start"
+          >
+            {HIGHLIGHT_PRESETS.map((preset) => (
+                <div key={preset.value}>
+                    <DropdownMenu.Item
+                        className="te-relative te-flex te-cursor-pointer te-select-none te-items-center te-rounded-sm te-px-2 te-py-1.5 te-text-sm te-outline-none focus:te-bg-editor-bg-hover data-[disabled]:te-pointer-events-none data-[disabled]:te-opacity-50"
+                        onSelect={() => handleSelect(preset)}
+                    >
+                         <div 
+                            className="te-flex te-items-center te-justify-center te-w-6 te-h-6 te-mr-2 te-rounded"
+                            style={{ 
+                                backgroundColor: preset.bgcolor || 'transparent',
+                                color: preset.color || 'inherit', 
+                                border: '1px solid var(--editor-border)',
+                            }}
+                         >
+                            <Highlighter size={14} />
+                         </div>
+                        {preset.label}
+                    </DropdownMenu.Item>
+                    {preset.divider && <DropdownMenu.Separator className="te-my-1 te-h-px te-bg-editor-border" />}
+                </div>
+            ))}
+             <DropdownMenu.Separator className="te-my-1 te-h-px te-bg-editor-border" />
+             <DropdownMenu.Item
+                 className="te-relative te-flex te-cursor-pointer te-select-none te-items-center te-rounded-sm te-px-2 te-py-1.5 te-text-sm te-outline-none focus:te-bg-editor-bg-hover te-text-red-500"
+                 onSelect={handleClear}
+             >
+                <div className="te-w-6 te-mr-2 te-flex te-items-center te-justify-center">
+                    <RemoveFormatting size={14} />
+                </div>
+                Clear Formatting
+             </DropdownMenu.Item>
+          </DropdownMenu.Content>
+       </DropdownMenu.Portal>
+     </DropdownMenu.Root>
+    );
 };
