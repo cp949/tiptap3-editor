@@ -1,6 +1,7 @@
 import { Table } from '@tiptap/extension-table'
 import { DOMParser as ProseMirrorDOMParser } from '@tiptap/pm/model'
 import { Plugin, PluginKey } from '@tiptap/pm/state'
+import { fixTables } from '@tiptap/pm/tables'
 
 // Helper: Parse CSS string to object
 const parseCSS = (cssRules: string) => {
@@ -101,6 +102,26 @@ const CustomTable = Table.extend({
         },
       }),
     ]
+  },
+
+  addCommands() {
+    return {
+      ...this.parent?.(),
+      fixTables:
+        () =>
+        ({ state, dispatch }) => {
+          if (dispatch) {
+            const { tr } = state
+            const fixed = fixTables(state)
+
+            if (fixed) {
+              dispatch(tr.setMeta('addToHistory', false))
+            }
+          }
+
+          return true
+        },
+    }
   },
 })
 

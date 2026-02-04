@@ -77,4 +77,4 @@
 
 ## 개발 관련 문서
 
-- **[Tiptap 확장 개발 지침서](./extension_development_guide.md)**: 새로운 확장을 개발할 때 지켜야 할 Do & Don't 가이드라인입니다.
+- **[Tiptap 확장 개발 지침서](./extension-development-guide.md)**: 새로운 확장을 개발할 때 지켜야 할 Do & Don't 가이드라인입니다.

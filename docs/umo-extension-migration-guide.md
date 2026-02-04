@@ -47,20 +47,50 @@
 
 - [x] **Core UI Framework**: 컴파운드 컴포넌트 기반 에디터 구조
 - [x] **Base Typography**: Bold, Italic, Underline, Strike (StarterKit)
-- [x] **Text Styling**: Color, Background Color, Highlight
 - [x] **Typography+**: TextAlign, LineHeight (일부)
-- [x] **Link**: 인터랙티브 링크 입력 및 관리
-- [x] **Image**: 기본 삽입 및 리사이저 통합
-- [x] **Table (Phase 1)**: 그리드 피커, 엑셀 붙여넣기, 9그리드 정렬, 셀 스타일(배경/테두리)
+- [ ] **Text Styling (Basic & Advanced)**
+  - [x] 기본적인 굵게, 기울임 등 (StarterKit)
+  - [ ] **글자색 (Text Color)**: 컬러 피커 UI 및 최근 사용 색상 관리
+  - [ ] **텍스트 배경색 (Highlight)**: 컬러 피커 및 단일 색상 하이라이트
+  - [ ] **고급 하이라이트 (Presets)**: 글자색/배경색 동시 적용 프리셋 (Umo 방식)
+- [ ] **Link (Basic Parity)**
+  - [x] 자동 링크(autolink) 및 기본 입력
+  - [ ] 인터랙티브 팝업 기반 링크 관리 (Umo 방식)
+  - [ ] 에디터 모드에 따른 클릭 동작 최적화
+- [ ] **Image (Migration & Advanced)**
+  - [x] 기본 삽입 및 드래그 앤 드롭 업로드
+  - [x] 기본적인 리사이저(Resizer) 통합
+  - [ ] 인라인/블록 이미지 이원화 지원
+  - [ ] 고급 속성 (회전, 반전, 정렬 값 유지)
+  - [ ] 이미지 캡션(Caption) 지원
+  - [ ] 필터 및 서버 업로드 통합 핸들러
+- [x] **Table (Phase 1 & 2)**
+  - [x] 그리드 피커 및 기본적인 표 생성
+  - [x] 엑셀/스프레드시트 붙여넣기 로직
+  - [x] 9그리드 셀 정렬 UI
+  - [x] 셀 배경색 및 테두리 색상 커스터마이징
+  - [x] 셀 병합 및 분할
+  - [x] 개별 헤더 셀 토글 기능
+  - [x] 테이블 구조 복구(Fix Tables) 명령어
+  - [x] 키보드/UI를 통한 셀 탐색(Next/Prev Cell)
+  - [ ] **테이블 너비 관리 (Width Management) - 보류**
+    - [ ] 100% 너비 vs 고정 너비 토글 기능
+    - [ ] 개별 열 너비 수동 조정 및 초기화
+    - **문제 상황**: Tiptap의 `resizable` 기능이 활성화된 상태에서 열 너비를 조정하면 인라인 픽셀 너비가 강제로 삽입되어, CSS의 `width: 100%` 설정과 충돌함. `!important`를 사용한 강제 적용은 가능하나 리사이징 로직과의 완벽한 통합을 위해 추가 기술 검토 필요.
 
 ### 🚀 진행 예정 (Planned)
 
-- [ ] **Table (Phase 2)**: 셀 병합/분할 UI 고도화, 표 내 복잡한 수식 지원 검토
-- [ ] **Image (Advanced)**: 이미지 캡션, 필터, 서버 업로드 통합 핸들러
-- [ ] **Code Block**: Prism/Lowlight 기반 구문 강조 강화 (Umo의 `code-block` 참조)
-- [ ] **Markdown**: 마크다운 입력 규칙 및 붙여넣기 강화
-- [ ] **Iframe / Video**: 외부 콘텐츠 삽입 레이아웃 최적화
-- [ ] **AI Assistant**: Umo의 AI 기능을 프로젝트 아키텍처에 맞게 이식 (미정)
+- [ ] **Table (Advanced)**
+  - [ ] 표 내 복잡한 수식 지원 검토
+  - [ ] 표 스타일 템플릿 제안 UI
+- [ ] **Code Block**
+  - [ ] Prism/Lowlight 기반 구문 강조 강화
+- [ ] **Markdown**
+  - [ ] 마크다운 입력 규칙 및 붙여넣기 강화
+- [ ] **Iframe / Video**
+  - [ ] 외부 콘텐츠 삽입 및 레이아웃 최적화
+- [ ] **AI Assistant**
+  - [ ] Umo의 AI 기능을 프로젝트 아키텍처에 맞게 이식 (미정)
 
 ---
 

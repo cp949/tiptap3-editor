@@ -16,6 +16,10 @@ import {
   Rows,
   Columns,
   Square,
+  Wrench,
+  ChevronRight,
+  ChevronLeft,
+  Heading,
 } from "lucide-react";
 import { useTiptapEditorContext } from "./TiptapEditorContext";
 import { ToolbarButton } from "./ToolbarButton";
@@ -74,19 +78,13 @@ export const TableBubbleMenu = ({ className }: { className?: string }) => {
       shouldShow={shouldShow}
       updateDelay={0}
       options={{
-        placement: "top-start",
+        placement: "top",
         offset: 8,
-        flip: {
-          padding: 8,
-        },
-        shift: {
-          padding: 8,
-        },
       }}
     >
       <div
         className={cn(
-          "te-flex te-flex-wrap te-bg-editor-toolbar te-border te-border-editor-border te-rounded te-shadow-lg te-p-1.5 te-gap-1.5 te-items-center te-z-50 te-relative te-max-w-[calc(100vw-2rem)]",
+          "te-flex te-flex-wrap te-bg-editor-toolbar te-border te-border-editor-border te-rounded te-shadow-lg te-p-1.5 te-gap-1.5 te-items-center te-z-[9999] te-relative te-max-w-[calc(100vw-2rem)] md:te-max-w-[600px]",
           className,
         )}
       >
@@ -150,6 +148,13 @@ export const TableBubbleMenu = ({ className }: { className?: string }) => {
               title="Toggle Header Column"
             >
               <Columns size={16} />
+            </ToolbarButton>
+            <ToolbarButton
+              onClick={() => editor.chain().focus().toggleHeaderCell().run()}
+              title="Toggle Header Cell"
+              isActive={editor.isActive("tableHeader")} // Check if current cell is header
+            >
+              <Heading size={16} />
             </ToolbarButton>
           </div>
         </div>
@@ -325,6 +330,36 @@ export const TableBubbleMenu = ({ className }: { className?: string }) => {
             className="te-text-red-600 hover:te-bg-red-50"
           >
             <Trash2 size={16} />
+          </ToolbarButton>
+        </div>
+
+        <div className="te-w-px te-h-6 te-bg-editor-border" />
+
+        {/* Group 6: Navigation & Utils */}
+        <div className="te-flex te-items-center te-gap-1">
+          <ToolbarButton
+            onClick={() => editor.chain().focus().goToPreviousCell().run()}
+            disabled={!editor.can().goToPreviousCell()}
+            title="Previous Cell"
+          >
+            <ChevronLeft size={16} />
+          </ToolbarButton>
+          <ToolbarButton
+            onClick={() => editor.chain().focus().goToNextCell().run()}
+            disabled={!editor.can().goToNextCell()}
+            title="Next Cell"
+          >
+            <ChevronRight size={16} />
+          </ToolbarButton>
+          
+          <div className="te-w-px te-h-6 te-bg-editor-border mx-1" />
+
+          <ToolbarButton
+            onClick={() => editor.commands.fixTables()}
+            disabled={!editor.can().fixTables()}
+            title="Fix Tables (Repair broken table structures)"
+          >
+            <Wrench size={16} />
           </ToolbarButton>
         </div>
       </div>
