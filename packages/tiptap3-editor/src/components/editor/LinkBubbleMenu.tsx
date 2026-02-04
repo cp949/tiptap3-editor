@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// @ts-expect-error
 import { BubbleMenu } from "@tiptap/react/menus";
 import { ExternalLink, Copy, Unlink, Pencil } from "lucide-react";
 

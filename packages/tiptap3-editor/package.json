@@ -1,6 +1,6 @@
 {
   "name": "@cp949/tiptap3-editor",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Tiptap 3.x based React Editor Library",
   "type": "module",
   "author": "cp949",
