@@ -6,7 +6,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "deploy": "pnpm --filter @cp949/tiptap3-editor run deploy",
+    "release": "pnpm --filter @cp949/tiptap3-editor run release",
     "lint": "turbo run lint",
     "format": "biome format --write .",
     "check-types": "turbo run check-types"

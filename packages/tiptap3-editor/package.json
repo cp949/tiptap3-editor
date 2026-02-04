@@ -25,7 +25,7 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "node ../../scripts/sync-pkg-docs.js && tsc && vite build",
-    "deploy": "pnpm build && pnpm publish --access public --no-git-checks",
+    "release": "pnpm build && pnpm publish --access public --no-git-checks",
     "preview": "vite preview",
     "lint": "biome lint .",
     "check-types": "tsc --noEmit"
