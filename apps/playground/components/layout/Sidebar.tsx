@@ -26,9 +26,11 @@ export type Tab = "rich" | "basic" | "custom" | "notion" | "save" | "dark" | "pa
 interface SidebarProps {
   activeTab: Tab;
   onTabChange: (tab: Tab) => void;
+  mobileOpen: boolean;
+  onDrawerToggle: () => void;
 }
 
-export const Sidebar = ({ activeTab, onTabChange }: SidebarProps) => {
+export const Sidebar = ({ activeTab, onTabChange, mobileOpen, onDrawerToggle }: SidebarProps) => {
   const menuItems = [
     {
       id: "rich",
@@ -74,15 +76,8 @@ export const Sidebar = ({ activeTab, onTabChange }: SidebarProps) => {
     }
   ] as const;
 
-  return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box" },
-      }}
-    >
+  const drawer = (
+    <div>
       <Toolbar>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
             <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 'bold' }}>
@@ -111,7 +106,12 @@ export const Sidebar = ({ activeTab, onTabChange }: SidebarProps) => {
               <ListItem key={item.id} disablePadding sx={{ px: 2, mb: 0.5 }}>
                 <ListItemButton
                   selected={isActive}
-                  onClick={() => onTabChange(item.id)}
+                  onClick={() => {
+                    onTabChange(item.id);
+                    if (mobileOpen) {
+                        onDrawerToggle();
+                    }
+                  }}
                   sx={{
                     borderRadius: 2,
                     '&.Mui-selected': {
@@ -153,6 +153,40 @@ export const Sidebar = ({ activeTab, onTabChange }: SidebarProps) => {
             </ListItemButton>
          </ListItem>
       </List>
-    </Drawer>
+    </div>
+  );
+
+  return (
+    <Box
+        component="nav"
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        aria-label="mailbox folders"
+    >
+        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        <Drawer
+            variant="temporary"
+            open={mobileOpen}
+            onClose={onDrawerToggle}
+            ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+                display: { xs: 'block', sm: 'none' },
+                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            }}
+        >
+            {drawer}
+        </Drawer>
+        <Drawer
+            variant="permanent"
+            sx={{
+                display: { xs: 'none', sm: 'block' },
+                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            }}
+            open
+        >
+            {drawer}
+        </Drawer>
+    </Box>
   );
 };

@@ -11,7 +11,7 @@ export const TiptapEditorToolbar = ({
   return (
     <div
       className={cn(
-        "te-bg-editor-toolbar te-border-b te-border-solid te-border-editor-border te-border-t-0 te-border-x-0 te-flex te-flex-wrap te-items-center te-sticky te-top-0 te-z-10",
+        "te-bg-editor-toolbar te-border-b te-border-solid te-border-editor-border te-border-t-0 te-border-x-0 te-flex te-flex-wrap te-items-center te-sticky te-top-0 te-z-10 te-overflow-x-auto te-max-w-full",
         // Mantine spacing: xs (10px) vertical, md (16px) horizontal
         "te-py-[10px] te-px-[16px] te-gap-[10px]",
         className,

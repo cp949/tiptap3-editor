@@ -63,7 +63,7 @@ export interface TiptapEditorProps {
 }
 
 const TiptapEditorRoot: React.FC<TiptapEditorProps> = ({
-  content = "<p>Hello <b>@cp949/tiptap3</b>!</p>",
+  content,
   placeholder,
   onChange,
   onImageUpload,
