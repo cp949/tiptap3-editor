@@ -1,41 +1,42 @@
-import { Table } from '@tiptap/extension-table'
-import { DOMParser as ProseMirrorDOMParser } from '@tiptap/pm/model'
-import { Plugin, PluginKey } from '@tiptap/pm/state'
-import { fixTables } from '@tiptap/pm/tables'
+import { Table } from "@tiptap/extension-table";
+import { DOMParser as ProseMirrorDOMParser } from "@tiptap/pm/model";
+import { Plugin, PluginKey } from "@tiptap/pm/state";
+import { fixTables } from "@tiptap/pm/tables";
 
 // Helper: Parse CSS string to object
 const parseCSS = (cssRules: string) => {
-  const results: any = {}
+  const results: Record<string, string> = {};
   const rules = cssRules
-    .split(';')
+    .split(";")
     .map((rule) => rule.trim())
-    .filter(Boolean)
+    .filter(Boolean);
   rules.forEach((rule) => {
-    const [property, value] = rule.split(':').map((part) => part.trim())
+    const [property, value] = rule.split(":").map((part) => part.trim());
     if (property && value) {
-      results[property] = value
+      results[property] = value;
     }
-  })
-  return results
-}
+  });
+  return results;
+};
 
 // Helper: Extract styles from style block
 const extractStyles = (styleText: string) => {
-  const regex = /\.(\w+)\s*\{([^}]+)\}/g
-  let match
-  const styles: any = {}
+  const regex = /\.(\w+)\s*\{([^}]+)\}/g;
+  let match: RegExpExecArray | null;
+  const styles: Record<string, Record<string, string>> = {};
 
+  // biome-ignore lint/suspicious/noAssignInExpressions: Standard regex iteration pattern
   while ((match = regex.exec(styleText)) !== null) {
     if (match[1] && match[2]) {
-      const className = match[1]
-      const cssRules = match[2]
-      const parsedRules = parseCSS(cssRules)
-      styles[className] = parsedRules
+      const className = match[1];
+      const cssRules = match[2];
+      const parsedRules = parseCSS(cssRules);
+      styles[className] = parsedRules;
     }
   }
 
-  return styles
-}
+  return styles;
+};
 
 const CustomTable = Table.extend({
   addProseMirrorPlugins() {
@@ -43,65 +44,67 @@ const CustomTable = Table.extend({
       ...(this.parent?.() ?? []),
       // Plugin to handle Excel paste
       new Plugin({
-        key: new PluginKey('handleExcelPaste'),
+        key: new PluginKey("handleExcelPaste"),
         props: {
           handlePaste(view, event) {
-            const { clipboardData } = event
-            if (!clipboardData) return false
+            const { clipboardData } = event;
+            if (!clipboardData) return false;
 
-            const html = clipboardData.getData('text/html')
-            if (!html) return false
+            const html = clipboardData.getData("text/html");
+            if (!html) return false;
 
-            const parser = new DOMParser()
-            const doc = parser.parseFromString(html, 'text/html')
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
             const excel = doc
-              ?.querySelector('html')
-              ?.getAttribute('xmlns:x')
-              ?.includes('office:excel')
+              ?.querySelector("html")
+              ?.getAttribute("xmlns:x")
+              ?.includes("office:excel");
             if (!excel) {
-              return false
+              return false;
             }
 
-            const table = doc.querySelector('table')
-            if (!table) return false
+            const table = doc.querySelector("table");
+            if (!table) return false;
 
-            const styleText = Array.from(doc.head.querySelectorAll('style'))
+            const styleText = Array.from(doc.head.querySelectorAll("style"))
               .map((style) => style.textContent) // style.textContent is nullable type
               .filter((text): text is string => text !== null)
-              .join('\n')
+              .join("\n");
 
             // Extract all styles
-            const styles = extractStyles(styleText)
+            const styles = extractStyles(styleText);
 
             // Apply styles to cells
-            table.querySelectorAll('td, th').forEach((cell: any) => {
-              const className = cell.getAttribute('class')
+            table.querySelectorAll("td, th").forEach((cell) => {
+              // cast to HTMLElement because querySelectorAll returns Element
+              const htmlCell = cell as HTMLElement;
+              const className = htmlCell.getAttribute("class");
               if (className && styles[className]) {
-                const style: any = styles[className]
+                const style = styles[className];
                 if (style?.background) {
-                  cell.style.background = style.background
+                  htmlCell.style.background = style.background;
                 }
                 if (style?.color) {
-                  cell.style.color = style.color
+                  htmlCell.style.color = style.color;
                 }
-                if (style?.['text-align']) {
-                  cell.setAttribute('align', style['text-align'])
+                if (style?.["text-align"]) {
+                  htmlCell.setAttribute("align", style["text-align"]);
                 }
               }
-            })
+            });
 
             // Use ProseMirror DOMParser to parse the table to a node
-            const { schema } = view.state
+            const { schema } = view.state;
             const fragment =
-              ProseMirrorDOMParser.fromSchema(schema).parse(table)
-            const transaction = view.state.tr.replaceSelectionWith(fragment)
-            view.dispatch(transaction)
+              ProseMirrorDOMParser.fromSchema(schema).parse(table);
+            const transaction = view.state.tr.replaceSelectionWith(fragment);
+            view.dispatch(transaction);
 
-            return true
+            return true;
           },
         },
       }),
-    ]
+    ];
   },
 
   addCommands() {
@@ -111,21 +114,21 @@ const CustomTable = Table.extend({
         () =>
         ({ state, dispatch }) => {
           if (dispatch) {
-            const { tr } = state
-            const fixed = fixTables(state)
+            const { tr } = state;
+            const fixed = fixTables(state);
 
             if (fixed) {
-              dispatch(tr.setMeta('addToHistory', false))
+              dispatch(tr.setMeta("addToHistory", false));
             }
           }
 
-          return true
+          return true;
         },
-    }
+    };
   },
-})
+});
 
 export default CustomTable.configure({
   allowTableNodeSelection: true,
   resizable: true,
-})
+});

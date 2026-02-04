@@ -10,7 +10,6 @@ export interface CustomLinkStorage {
   };
 }
 
-// @ts-ignore
 const CustomLink = Link.extend({
   addStorage() {
     return {

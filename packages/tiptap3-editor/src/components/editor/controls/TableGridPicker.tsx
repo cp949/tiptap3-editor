@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import { cn } from "../../../utils/cn";
 
 export interface TableGridPickerProps {
@@ -23,28 +24,39 @@ export const TableGridPicker: React.FC<TableGridPickerProps> = ({
 
   return (
     <div className="te-p-2 te-bg-editor-toolbar te-rounded te-shadow-lg te-border te-border-editor-border">
-      <div 
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: Mouse leave logic required on container */}
+      <div
         className="te-grid te-gap-1"
-        style={{ 
+        style={{
           gridTemplateColumns: `repeat(${maxCols}, 1fr)`,
-          width: "max-content"
+          width: "max-content",
         }}
         onMouseLeave={() => setHovered({ rows: 0, cols: 0 })}
       >
         {rows.map((_, rowIndex) =>
           cols.map((_, colIndex) => (
-            <div
+            <button
+              // biome-ignore lint/suspicious/noArrayIndexKey: Grid indices are stable and unique identifiers here
               key={`${rowIndex}-${colIndex}`}
+              type="button"
               className={cn(
                 "te-w-4 te-h-4 te-border te-border-solid te-cursor-pointer te-transition-colors",
                 isSelected(rowIndex, colIndex)
                   ? "te-border-primary te-bg-primary/20"
-                  : "te-border-editor-border hover:te-border-primary"
+                  : "te-border-editor-border hover:te-border-primary",
               )}
-              onMouseEnter={() => setHovered({ rows: rowIndex + 1, cols: colIndex + 1 })}
+              onMouseEnter={() =>
+                setHovered({ rows: rowIndex + 1, cols: colIndex + 1 })
+              }
               onClick={() => onSelect(rowIndex + 1, colIndex + 1)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onSelect(rowIndex + 1, colIndex + 1);
+                }
+              }}
             />
-          ))
+          )),
         )}
       </div>
       <div className="te-mt-2 te-text-center te-text-xs te-text-editor-text-secondary te-font-medium">

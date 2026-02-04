@@ -24,7 +24,7 @@ export default {
           "text-secondary": "var(--te-text-secondary)",
           "text-muted": "var(--te-text-muted)",
           "text-inverse": "var(--te-text-inverse)",
-        }
+        },
       },
       borderRadius: {
         DEFAULT: "var(--te-radius)",
@@ -32,21 +32,21 @@ export default {
       boxShadow: {
         sm: "var(--te-shadow-sm)",
         DEFAULT: "var(--te-shadow)",
-      }
+      },
     },
   },
   plugins: [
     typography({
       className: "te-prose",
     }),
-    function ({ addBase, theme }) {
+    ({ addBase }) => {
       addBase({
-        '.te-prose strong': {
-          color: 'inherit',
+        ".te-prose strong": {
+          color: "inherit",
         },
-        '.te-prose b': {
-            color: 'inherit',
-        }
+        ".te-prose b": {
+          color: "inherit",
+        },
       });
     },
   ],

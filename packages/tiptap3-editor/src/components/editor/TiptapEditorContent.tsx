@@ -10,8 +10,12 @@ export interface TiptapEditorContentProps {
   style?: React.CSSProperties;
 }
 
-export const TiptapEditorContent = ({ className, style }: TiptapEditorContentProps) => {
-  const { editor, isSourceMode, toggleSourceMode, initialContent } = useTiptapEditorContext();
+export const TiptapEditorContent = ({
+  className,
+  style,
+}: TiptapEditorContentProps) => {
+  const { editor, isSourceMode, toggleSourceMode, initialContent } =
+    useTiptapEditorContext();
 
   if (!editor) {
     return (
@@ -22,6 +26,7 @@ export const TiptapEditorContent = ({ className, style }: TiptapEditorContentPro
         <div className="te-p-4">
           <div
             className="te-prose te-max-w-none te-outline-none [&_.ProseMirror]:te-min-h-[12rem]"
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: Initial content rendering required for rich text editor
             dangerouslySetInnerHTML={{ __html: initialContent || "" }}
           />
         </div>

@@ -48,6 +48,7 @@
 
 /* Link Cursor Override */
 .ProseMirror a {
+  /* biome-ignore lint/complexity/noImportantStyles: Legacy style */
   cursor: text !important;
 }
 
@@ -107,63 +108,63 @@
 }
 
 /* 9-Grid Table Alignment Styles */
-.te-editor-root table td[align='left-top'],
-.te-editor-root table th[align='left-top'] {
+.te-editor-root table td[align="left-top"],
+.te-editor-root table th[align="left-top"] {
   vertical-align: top;
   text-align: left;
 }
-.te-editor-root table td[align='center-top'],
-.te-editor-root table th[align='center-top'] {
+.te-editor-root table td[align="center-top"],
+.te-editor-root table th[align="center-top"] {
   vertical-align: top;
   text-align: center;
 }
-.te-editor-root table td[align='right-top'],
-.te-editor-root table th[align='right-top'] {
+.te-editor-root table td[align="right-top"],
+.te-editor-root table th[align="right-top"] {
   vertical-align: top;
   text-align: right;
 }
-.te-editor-root table td[align='justify-top'],
-.te-editor-root table th[align='justify-top'] {
+.te-editor-root table td[align="justify-top"],
+.te-editor-root table th[align="justify-top"] {
   vertical-align: top;
   text-align: justify;
 }
-.te-editor-root table td[align='left-middle'],
-.te-editor-root table th[align='left-middle'] {
+.te-editor-root table td[align="left-middle"],
+.te-editor-root table th[align="left-middle"] {
   vertical-align: middle;
   text-align: left;
 }
-.te-editor-root table td[align='center-middle'],
-.te-editor-root table th[align='center-middle'] {
+.te-editor-root table td[align="center-middle"],
+.te-editor-root table th[align="center-middle"] {
   vertical-align: middle;
   text-align: center;
 }
-.te-editor-root table td[align='right-middle'],
-.te-editor-root table th[align='right-middle'] {
+.te-editor-root table td[align="right-middle"],
+.te-editor-root table th[align="right-middle"] {
   vertical-align: middle;
   text-align: right;
 }
-.te-editor-root table td[align='justify-middle'],
-.te-editor-root table th[align='justify-middle'] {
+.te-editor-root table td[align="justify-middle"],
+.te-editor-root table th[align="justify-middle"] {
   vertical-align: middle;
   text-align: justify;
 }
-.te-editor-root table td[align='left-bottom'],
-.te-editor-root table th[align='left-bottom'] {
+.te-editor-root table td[align="left-bottom"],
+.te-editor-root table th[align="left-bottom"] {
   vertical-align: bottom;
   text-align: left;
 }
-.te-editor-root table td[align='center-bottom'],
-.te-editor-root table th[align='center-bottom'] {
+.te-editor-root table td[align="center-bottom"],
+.te-editor-root table th[align="center-bottom"] {
   vertical-align: bottom;
   text-align: center;
 }
-.te-editor-root table td[align='right-bottom'],
-.te-editor-root table th[align='right-bottom'] {
+.te-editor-root table td[align="right-bottom"],
+.te-editor-root table th[align="right-bottom"] {
   vertical-align: bottom;
   text-align: right;
 }
-.te-editor-root table td[align='justify-bottom'],
-.te-editor-root table th[align='justify-bottom'] {
+.te-editor-root table td[align="justify-bottom"],
+.te-editor-root table th[align="justify-bottom"] {
   vertical-align: bottom;
   text-align: justify;
 }
@@ -191,6 +192,7 @@
 }
 
 .tippy-box {
+  /* biome-ignore lint/complexity/noImportantStyles: Legacy style */
   z-index: 50 !important;
 }
 

@@ -27,9 +27,36 @@ import { ActionButton } from "./controls/ActionButton";
 import { cn } from "../../utils/cn";
 
 const COLORS = [
-  "#000000", "#434343", "#666666", "#999999", "#b7b7b7", "#cccccc", "#d9d9d9", "#efefef", "#f3f3f3", "#ffffff",
-  "#980000", "#ff0000", "#ff9900", "#ffff00", "#00ff00", "#00ffff", "#4a86e8", "#0000ff", "#9900ff", "#ff00ff",
-  "#e6b8af", "#f4cccc", "#fce5cd", "#fff2cc", "#d9ead3", "#d0e0e3", "#c9daf8", "#cfe2f3", "#d9d2e9", "#ead1dc",
+  "#000000",
+  "#434343",
+  "#666666",
+  "#999999",
+  "#b7b7b7",
+  "#cccccc",
+  "#d9d9d9",
+  "#efefef",
+  "#f3f3f3",
+  "#ffffff",
+  "#980000",
+  "#ff0000",
+  "#ff9900",
+  "#ffff00",
+  "#00ff00",
+  "#00ffff",
+  "#4a86e8",
+  "#0000ff",
+  "#9900ff",
+  "#ff00ff",
+  "#e6b8af",
+  "#f4cccc",
+  "#fce5cd",
+  "#fff2cc",
+  "#d9ead3",
+  "#d0e0e3",
+  "#c9daf8",
+  "#cfe2f3",
+  "#d9d2e9",
+  "#ead1dc",
 ];
 
 const ALIGNMENTS = [
@@ -59,8 +86,8 @@ export const TableBubbleMenu = ({ className }: { className?: string }) => {
   }, []);
   const appendTo = useCallback(() => document.body, []);
 
-  // Force unmount if a toolbar popup is active. 
-  // This is necessary because Tiptap's BubbleMenu doesn't always re-evaluate `shouldShow` 
+  // Force unmount if a toolbar popup is active.
+  // This is necessary because Tiptap's BubbleMenu doesn't always re-evaluate `shouldShow`
   // immediately upon React state changes (it waits for editor transactions).
   if (!editor || activeToolbarPopup) {
     return null;
@@ -102,42 +129,53 @@ export const TableBubbleMenu = ({ className }: { className?: string }) => {
         <div className="te-flex te-items-center te-gap-1">
           <Popover.Root open={alignOpen} onOpenChange={setAlignOpen}>
             <Popover.Trigger asChild>
-              <ToolbarButton title="Cell Alignment" className="te-px-1 te-gap-1">
+              <ToolbarButton
+                title="Cell Alignment"
+                className="te-px-1 te-gap-1"
+              >
                 <AlignCenter size={16} />
                 <ChevronDown size={12} />
               </ToolbarButton>
             </Popover.Trigger>
             <Popover.Portal>
-              <Popover.Content 
+              <Popover.Content
                 className="te-z-[100] te-p-1 te-bg-editor-toolbar te-border te-border-editor-border te-rounded te-shadow-xl te-grid te-grid-cols-3 te-gap-1 te-animate-in te-fade-in te-zoom-in-95"
                 sideOffset={5}
               >
                 {ALIGNMENTS.map((align) => (
                   <button
+                    type="button"
                     key={align.value}
                     title={align.label}
                     className={cn(
                       "te-w-8 te-h-8 te-flex te-items-center te-justify-center te-rounded hover:te-bg-editor-toolbar-hover",
-                      editor.getAttributes("tableCell").align === align.value && "te-bg-editor-toolbar-hover te-text-primary"
+                      editor.getAttributes("tableCell").align === align.value &&
+                        "te-bg-editor-toolbar-hover te-text-primary",
                     )}
                     onClick={() => setCellAlign(align.value)}
                   >
-                    <div className={cn(
-                      "te-w-4 te-h-4 te-border te-border-current te-relative",
-                      align.value.includes("top") && "te-border-t-2",
-                      align.value.includes("bottom") && "te-border-b-2",
-                      align.value.includes("left") && "te-border-l-2",
-                      align.value.includes("right") && "te-border-r-2",
-                    )}>
-                        <div className={cn(
+                    <div
+                      className={cn(
+                        "te-w-4 te-h-4 te-border te-border-current te-relative",
+                        align.value.includes("top") && "te-border-t-2",
+                        align.value.includes("bottom") && "te-border-b-2",
+                        align.value.includes("left") && "te-border-l-2",
+                        align.value.includes("right") && "te-border-r-2",
+                      )}
+                    >
+                      <div
+                        className={cn(
                           "te-absolute te-w-1 te-h-1 te-bg-current te-rounded-full",
                           align.value.includes("top") && "te-top-0",
                           align.value.includes("bottom") && "te-bottom-0",
-                          align.value.includes("middle") && "te-top-1/2 te--translate-y-1/2",
+                          align.value.includes("middle") &&
+                            "te-top-1/2 te--translate-y-1/2",
                           align.value.includes("left") && "te-left-0",
                           align.value.includes("right") && "te-right-0",
-                          align.value.includes("center") && "te-left-1/2 te--translate-x-1/2",
-                        )} />
+                          align.value.includes("center") &&
+                            "te-left-1/2 te--translate-x-1/2",
+                        )}
+                      />
                     </div>
                   </button>
                 ))}
@@ -181,20 +219,24 @@ export const TableBubbleMenu = ({ className }: { className?: string }) => {
               >
                 <PaintBucket size={16} />
                 {editor.getAttributes("tableCell").background && (
-                  <div 
+                  <div
                     className="te-absolute te-bottom-1 te-right-1 te-w-2 te-h-2 te-rounded-full te-border te-border-white"
-                    style={{ backgroundColor: editor.getAttributes("tableCell").background }}
+                    style={{
+                      backgroundColor:
+                        editor.getAttributes("tableCell").background,
+                    }}
                   />
                 )}
               </ToolbarButton>
             </Popover.Trigger>
             <Popover.Portal>
-              <Popover.Content 
+              <Popover.Content
                 className="te-z-[100] te-p-2 te-bg-editor-toolbar te-border te-border-editor-border te-rounded te-shadow-xl te-grid te-grid-cols-10 te-gap-1 te-animate-in te-fade-in te-zoom-in-95"
                 sideOffset={5}
               >
                 {COLORS.map((color) => (
                   <button
+                    type="button"
                     key={color}
                     className="te-w-5 te-h-5 te-rounded-sm te-border te-border-editor-border hover:te-scale-110 te-transition-transform"
                     style={{ backgroundColor: color }}
@@ -202,7 +244,7 @@ export const TableBubbleMenu = ({ className }: { className?: string }) => {
                   />
                 ))}
                 <ActionButton
-                  variant="ghost" 
+                  variant="ghost"
                   size="sm"
                   className="te-col-span-full te-mt-2"
                   onClick={() => setCellBackground(null)}
@@ -221,20 +263,24 @@ export const TableBubbleMenu = ({ className }: { className?: string }) => {
               >
                 <Square size={16} />
                 {editor.getAttributes("tableCell").borderColor && (
-                  <div 
+                  <div
                     className="te-absolute te-bottom-1 te-right-1 te-w-2 te-h-2 te-rounded-full te-border te-border-white"
-                    style={{ backgroundColor: editor.getAttributes("tableCell").borderColor }}
+                    style={{
+                      backgroundColor:
+                        editor.getAttributes("tableCell").borderColor,
+                    }}
                   />
                 )}
               </ToolbarButton>
             </Popover.Trigger>
             <Popover.Portal>
-              <Popover.Content 
+              <Popover.Content
                 className="te-z-[100] te-p-2 te-bg-editor-toolbar te-border te-border-editor-border te-rounded te-shadow-xl te-grid te-grid-cols-10 te-gap-1 te-animate-in te-fade-in te-zoom-in-95"
                 sideOffset={5}
               >
                 {COLORS.map((color) => (
                   <button
+                    type="button"
                     key={color}
                     className="te-w-5 te-h-5 te-rounded-sm te-border te-border-editor-border hover:te-scale-110 te-transition-transform"
                     style={{ backgroundColor: color }}
@@ -242,7 +288,7 @@ export const TableBubbleMenu = ({ className }: { className?: string }) => {
                   />
                 ))}
                 <ActionButton
-                  variant="ghost" 
+                  variant="ghost"
                   size="sm"
                   className="te-col-span-full te-mt-2"
                   onClick={() => setCellBorderColor(null)}
@@ -334,7 +380,7 @@ export const TableBubbleMenu = ({ className }: { className?: string }) => {
               <Split size={16} />
             </ToolbarButton>
           </div>
-          
+
           <div className="te-w-px te-h-6 te-bg-editor-border mx-1" />
 
           <ToolbarButton
@@ -365,7 +411,7 @@ export const TableBubbleMenu = ({ className }: { className?: string }) => {
           >
             <ChevronRight size={16} />
           </ToolbarButton>
-          
+
           <div className="te-w-px te-h-6 te-bg-editor-border mx-1" />
 
           <ToolbarButton
