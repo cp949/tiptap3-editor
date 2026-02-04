@@ -7,3 +7,4 @@ export * from "./components/templates/BasicEditor";
 export * from "./components/templates/RichEditor";
 export type { Editor } from "@tiptap/react";
 
+export { default as Table } from "./extensions/table";

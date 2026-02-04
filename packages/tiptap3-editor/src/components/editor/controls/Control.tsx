@@ -1,4 +1,4 @@
-import type React from "react";
+import React, { memo } from "react";
 import { useTiptapEditorContext } from "../TiptapEditorContext";
 import { cn } from "../../../utils/cn";
 
@@ -6,7 +6,7 @@ export interface ControlProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
   isActive?: boolean;
 }
 
-export const Control = ({
+export const Control = memo(({
   children,
   className = "",
   isActive,
@@ -29,4 +29,6 @@ export const Control = ({
       {children}
     </button>
   );
-};
+});
+
+Control.displayName = "Control";

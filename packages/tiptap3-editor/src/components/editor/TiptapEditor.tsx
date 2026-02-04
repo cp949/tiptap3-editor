@@ -3,10 +3,10 @@ import { Color } from "@tiptap/extension-color";
 import Highlight from "@tiptap/extension-highlight";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
-import { Table } from "@tiptap/extension-table";
-import { TableCell } from "@tiptap/extension-table-cell";
-import { TableHeader } from "@tiptap/extension-table-header";
 import { TableRow } from "@tiptap/extension-table-row";
+import Table from "../../extensions/table";
+import TableCell from "../../extensions/table/cell";
+import TableHeader from "../../extensions/table/header";
 import TextAlign from "@tiptap/extension-text-align";
 import { TextStyle } from "@tiptap/extension-text-style";
 import { Underline } from "@tiptap/extension-underline";
@@ -75,10 +75,13 @@ const TiptapEditorRoot: React.FC<TiptapEditorProps> = ({
   const [isSourceMode, setIsSourceMode] = useState(false);
   const [version, setVersion] = useState(0);
 
+  const onChangeTimerRef = React.useRef<NodeJS.Timeout | null>(null);
+
   const editor = useEditor(
     {
       immediatelyRender: false,
       extensions: [
+        // ... (extensions keep same)
         StarterKit,
         Placeholder.configure({
           placeholder: placeholder || "Write something...",
@@ -112,6 +115,7 @@ const TiptapEditorRoot: React.FC<TiptapEditorProps> = ({
         }),
       ],
       editorProps: {
+        // ... (editorProps keep same)
         handlePaste: (view, event) => {
           if (!event.clipboardData?.files.length) {
             return false;
@@ -213,10 +217,14 @@ const TiptapEditorRoot: React.FC<TiptapEditorProps> = ({
       editable: !readOnly,
       onUpdate: ({ editor }) => {
         if (onChange) {
-          const html = editor.getHTML();
-          requestAnimationFrame(() => {
+          if (onChangeTimerRef.current) {
+            clearTimeout(onChangeTimerRef.current);
+          }
+          // Debounce the HTML conversion and onChange call
+          onChangeTimerRef.current = setTimeout(() => {
+            const html = editor.getHTML();
             onChange(html);
-          });
+          }, 300);
         }
       },
     },
@@ -224,10 +232,25 @@ const TiptapEditorRoot: React.FC<TiptapEditorProps> = ({
   );
 
   useEffect(() => {
+    return () => {
+      if (onChangeTimerRef.current) {
+        clearTimeout(onChangeTimerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     if (!editor) return;
 
+    let lastTransactionTime = 0;
+    const THROTTLE_MS = 150; // Sync toolbar states at most every 150ms during typing
+
     const handleTransaction = () => {
-      setVersion((v) => v + 1);
+      const now = Date.now();
+      if (now - lastTransactionTime > THROTTLE_MS) {
+        setVersion((v) => v + 1);
+        lastTransactionTime = now;
+      }
     };
 
     editor.on("transaction", handleTransaction);

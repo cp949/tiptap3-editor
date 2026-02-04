@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Bold as BoldIcon,
   Italic as ItalicIcon,
@@ -27,6 +28,8 @@ import {
 
 import { useTiptapEditorContext } from "../TiptapEditorContext";
 import { Control, type ControlProps } from "./Control";
+import { TableGridPicker } from "./TableGridPicker";
+import * as Popover from "@radix-ui/react-popover";
 
 // Typography
 export const BoldControl = (props: ControlProps) => {
@@ -310,20 +313,37 @@ export const ImageControl = (props: ControlProps) => {
 
 export const TableControl = (props: ControlProps) => {
   const { editor } = useTiptapEditorContext();
+  const [open, setOpen] = useState(false);
+
+  const handleSelect = (rows: number, cols: number) => {
+    editor
+      ?.chain()
+      .focus()
+      .insertTable({ rows, cols, withHeaderRow: true })
+      .run();
+    setOpen(false);
+  };
+
   return (
-    <Control
-      onClick={() =>
-        editor
-          ?.chain()
-          .focus()
-          .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
-          .run()
-      }
-      title="Insert Table"
-      {...props}
-    >
-      <TableIcon size={18} />
-    </Control>
+    <Popover.Root open={open} onOpenChange={setOpen}>
+      <Popover.Trigger asChild>
+        <Control
+          title="Insert Table"
+          {...props}
+        >
+          <TableIcon size={18} />
+        </Control>
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Content
+          className="te-z-[100] te-mt-1 te-shadow-lg te-border te-border-editor-border te-bg-editor-toolbar te-rounded te-outline-none te-animate-in te-fade-in te-zoom-in-95"
+          sideOffset={5}
+          align="start"
+        >
+          <TableGridPicker onSelect={handleSelect} />
+        </Popover.Content>
+      </Popover.Portal>
+    </Popover.Root>
   );
 };
 
