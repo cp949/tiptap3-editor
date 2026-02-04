@@ -2,6 +2,14 @@
 
 이 문서는 `umo-editor`의 우수한 기능들을 `@cp949/tiptap3-editor`로 전환하기 위한 핵심 정보를 담고 있습니다. 매번 소스 전체를 탐색하지 않고도 효율적으로 전환 작업을 수행할 수 있도록 돕습니다.
 
+> [!IMPORTANT]
+> **핵심 개발 원칙 (Migration-First Strategy)**
+> **"새로 만들지 말고, 완벽하게 이식하십시오."**
+>
+> 1. **로직 이식 (No Reinventing)**: 기능의 작동 방식이나 알고리즘을 새로 고민하지 마세요. `umo-editor`의 로직이 곧 정답지입니다.
+> 2. **디자인 일치 (Design Parity)**: UI/UX는 물론 **색상 목록(Palette)**, 버튼 배치, 미세한 스타일까지 Umo 에디터를 원본(Source of Truth)으로 삼아 똑같이 구현해야 합니다.
+> 3. **기술 스택 변환**: 결과물(로직+디자인)은 Umo와 같아야 하지만, 구현 코드는 우리의 기술 스택(React, Radix UI, Tailwind)과 아키텍처에 맞춰 작성합니다.
+
 ---
 
 ## 1. Umo Editor 핵심 소스 위치 (`_work/thirdparty/umo-editor`)
@@ -42,6 +50,9 @@ extensions 기능을 분석하고 가져올 때 참고해야 할 주요 경로�
 ## 3. extensions 전환 로드맵 (Checklist)
 
 현재 완료된 항목과 향후 진행할 항목을 관리합니다.
+
+- umo의 코드를 가져와서 @cp949/tiptap3-editor의 스타일에 맞게 구현합니다.
+- (중요) 완전히 신규로 구현하는 것이 아니라, 기존에 구현된 것을 가져와서 @cp949/tiptap3-editor의 스타일에 맞게 구현합니다.
 
 ### ✅ 완료 (Completed)
 
@@ -89,8 +100,6 @@ extensions 기능을 분석하고 가져올 때 참고해야 할 주요 경로�
   - [ ] 마크다운 입력 규칙 및 붙여넣기 강화
 - [ ] **Iframe / Video**
   - [ ] 외부 콘텐츠 삽입 및 레이아웃 최적화
-- [ ] **AI Assistant**
-  - [ ] Umo의 AI 기능을 프로젝트 아키텍처에 맞게 이식 (미정)
 
 ---
 

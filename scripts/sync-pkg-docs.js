@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 
 const ROOT_DIR = path.resolve(__dirname, "..");
 const PKG_DIR = path.join(ROOT_DIR, "packages/tiptap3-editor");
-const DOCS = ["README.md", "STYLE_GUIDE.md"];
+const DOCS = ["README.md", "STYLE_GUIDE.md", "USER_GUIDE.md", "ARCHITECTURE.md"];
 const GITHUB_BASE_URL = "https://github.com/cp949/tiptap3-editor/blob/main/";
 
 DOCS.forEach((filename) => {
@@ -23,10 +23,10 @@ DOCS.forEach((filename) => {
   let content = fs.readFileSync(srcPath, "utf8");
 
   // Relative links to absolute GitHub links
-  // Matches links like [Label](apps/playground/...) but not http/https
+  // Matches links like [Label](apps/playground/...) or [Label](docs/...) but not http/https
   content = content.replace(
-    /(\[.*?\])\((?!https?:\/\/)(apps\/playground\/.*?)\)/g,
-    `$1(${GITHUB_BASE_URL}$2)`,
+    /(\[.*?\])\((?!https?:\/\/)(apps\/playground\/|docs\/)(.*?)\)/g,
+    `$1(${GITHUB_BASE_URL}$2$3)`,
   );
 
   fs.writeFileSync(destPath, content);

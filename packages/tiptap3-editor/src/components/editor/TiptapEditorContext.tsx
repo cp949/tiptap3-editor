@@ -8,6 +8,8 @@ export interface TiptapEditorContextValue {
   isReadOnly: boolean;
   initialContent?: string;
   version: number;
+  activeToolbarPopup: string | null;
+  setActiveToolbarPopup: (popup: string | null) => void;
 }
 
 export const TiptapEditorContext = createContext<TiptapEditorContextValue | null>(

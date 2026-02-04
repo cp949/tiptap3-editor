@@ -21,7 +21,6 @@ import {
   Redo as RedoIcon,
   RemoveFormatting,
   FileCode,
-  Link as LinkIcon,
   Highlighter,
   Palette,
 } from "lucide-react";
@@ -365,38 +364,7 @@ export const SourceControl = (props: ControlProps) => {
 };
 
 // Advanced Formatting
-export const LinkControl = (props: ControlProps) => {
-  const { editor } = useTiptapEditorContext();
-  return (
-    <Control
-      onClick={() => {
-        const previousUrl = editor?.getAttributes("link").href;
-        const url = window.prompt("URL", previousUrl);
-
-        if (url === null) {
-          return;
-        }
-
-        if (url === "") {
-          editor?.chain().focus().extendMarkRange("link").unsetLink().run();
-          return;
-        }
-
-        editor
-          ?.chain()
-          .focus()
-          .extendMarkRange("link")
-          .setLink({ href: url })
-          .run();
-      }}
-      isActive={editor?.isActive("link")}
-      title="Link"
-      {...props}
-    >
-      <LinkIcon size={18} />
-    </Control>
-  );
-};
+export { LinkControl } from "./LinkControl";
 
 export const ColorControl = (props: ControlProps) => {
   const { editor } = useTiptapEditorContext();

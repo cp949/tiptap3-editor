@@ -20,6 +20,7 @@ import { RichEditorExample } from "../components/examples/RichEditorExample";
 import { NotionStyleExample } from "../components/examples/styles/NotionStyleExample";
 import { DarkThemeExample } from "../components/examples/styles/DarkThemeExample";
 import { PastelThemeExample } from "../components/examples/styles/PastelThemeExample";
+import { UncontrolledEditorExample } from "../components/examples/UncontrolledEditorExample";
 import { type Tab } from "../components/layout/Sidebar";
 
 export default function Home() {
@@ -37,6 +38,12 @@ export default function Home() {
       description: "A lightweight version with essential formatting tools, perfect for comments or simple posts.",
       componentName: "<BasicEditor />",
       color: "success",
+    },
+    uncontrolled: {
+        title: "Uncontrolled Editor",
+        description: "Optimized for performance using initialContent. No React re-render overhead on typing.",
+        componentName: "<TiptapEditor />",
+        color: "secondary",
     },
     custom: {
       title: "Custom Toolbar",
@@ -114,6 +121,7 @@ export default function Home() {
             <CardContent>
                 {activeTab === "rich" && <RichEditorExample />}
                 {activeTab === "basic" && <BasicEditorExample />}
+                {activeTab === "uncontrolled" && <UncontrolledEditorExample />}
                 {activeTab === "custom" && <CustomToolbarExample />}
                 {activeTab === "notion" && <NotionStyleExample />}
                 {activeTab === "save" && <SaveButtonExample />}

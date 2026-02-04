@@ -57,3 +57,75 @@ Tiptap 확장은 에디터의 코어 기능을 확장하는 강력한 방법입�
 18. **Cleanup 누락**: `addProseMirrorPlugins` 내에서 외부 리스너를 등록했다면 `destroy` 시점에 반드시 해제하세요.
 19. **내부 API 과도한 노출**: Tiptap의 불안정한 내부 API에 직접 의존하여 버전 업그레이드를 어렵게 만들지 마세요.
 20. **테스트 없이 배포**: 복잡한 로직을 가진 확장은 최소한의 렌더링 테스트 없이 통합하지 마세요.
+
+## 4. UI 개발 및 조율 가이드 (Global UI Coordination)
+
+에디터 내에서 여러 UI(Toolbar Popover, Bubble Menu, Floating Menu 등)가 동시에 떠서 화면을 가리는 문제를 방지하기 위해 다음 규칙을 **반드시** 준수해야 합니다.
+
+### 4.1. Global UI Coordination (전역 UI 조율)
+
+TiptapEditorContext의 `activeToolbarPopup` 상태를 사용하여 상호 배타적인 UI 표시를 보장합니다.
+
+1.  **Toolbar Controls (제어권 획득)**
+    - Popover나 Dialog를 띄우는 컴포넌트(예: LinkControl, ColorPicker)는 열릴 때 `setTimeout` 등을 통해 `setActiveToolbarPopup("control-name")`을 호출하여 **"내가 지금 사용 중임"**을 알려야 합니다.
+    - 닫힐 때는 `setActiveToolbarPopup(null)`을 호출하여 제어권을 해제합니다.
+
+2.  **Bubble Menus (제어권 양보)**
+    - 캔버스 위에 뜨는 메뉴(TableBubbleMenu 등)는 `activeToolbarPopup` 값이 존재하면 **즉시 렌더링을 중단(return null)**해야 합니다.
+    - 단순히 `shouldShow`에서 `false`를 리턴하는 것만으로는 Tiptap의 업데이트 주기(Transaction 기반)로 인해 반응이 늦을 수 있으므로, **컴포넌트 레벨에서 조건부 렌더링(Conditional Rendering)**을 적용하여 강제로 언마운트 시키는 것이 안전합니다.
+
+    ```typescript
+    // ✅ 올바른 패턴: 조건부 렌더링으로 즉시 언마운트
+    export const TableBubbleMenu = () => {
+      const { editor, activeToolbarPopup } = useTiptapEditorContext();
+
+      // 툴바 팝업이 떠있으면 아예 렌더링하지 않음 (강제 숨김)
+      if (!editor || activeToolbarPopup) return null;
+
+      return <BubbleMenu ... />;
+    }
+    ```
+
+### 4.2. Context Priority (컨텍스트 우선순위)
+
+서로 다른 Bubble Menu 간의 우선순위를 명확히 합니다.
+
+- Link 우선 원칙: 텍스트에 링크가 걸려있다면, Table 안에 있더라도 **Link Bubble Menu**가 우선합니다.
+- `TableBubbleMenu`는 `isActive('link')`가 `true`일 때 스스로를 숨겨야 합니다.
+
+---
+
+## 5. 성능 최적화 및 Uncontrolled Mode 가이드
+
+### 5.1. Uncontrolled Mode 권장
+
+Tiptap은 기본적으로 빠른 타이핑 반응성을 위해 **Uncontrolled Mode** 사용을 권장합니다. React 상태와 매번 동기화하는 구조는 타이핑 시마다 `getHTML()` 직렬화 비용을 발생시켜 부자연스러운 입력 경험을 유발할 수 있습니다.
+
+**권장 패턴:**
+
+- `initialContent`: 초기값 설정에 사용합니다.
+- `onCreate`: 에디터 인스턴스를 캡처하여 필요 시 제어합니다.
+- `editor.commands.setContent()`: 외부에서 내용을 리셋하거나 덮어씌울 때 사용합니다.
+
+```tsx
+// ✅ 최적화된 사용법
+const [editorRef, setEditorRef] = useState<Editor | null>(null);
+
+<TiptapEditor
+  initialContent="<p>Hello</p>"
+  onCreate={setEditorRef} // 인스턴스 캡처
+/>;
+
+// 외부에서 리셋 필요 시
+const handleReset = () => {
+  editorRef?.commands.setContent("<p>New Content</p>");
+};
+```
+
+### 5.2. Controlled Mode 주의사항
+
+`content` prop을 사용하여 상태를 동기화하는 **Controlled Mode**는 꼭 필요한 경우(실시간 상태 공유 등)에만 사용하세요.
+
+- **비용**: 매 타이핑마다 `getHTML()` 호출 및 Virtual DOM 비교 발생.
+- **증상**: 한글 입력 시 자소 분리, 커서 뜀, 미세한 렉 발생 가능성.
+- **대안**: 가능한 `onCreate` 패턴을 사용하여 외부 제어를 수행하세요.

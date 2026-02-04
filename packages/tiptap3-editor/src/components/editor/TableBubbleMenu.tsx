@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { useTiptapEditorContext } from "./TiptapEditorContext";
 import { ToolbarButton } from "./ToolbarButton";
+import { ActionButton } from "./controls/ActionButton";
 import { cn } from "../../utils/cn";
 
 const COLORS = [
@@ -44,15 +45,24 @@ const ALIGNMENTS = [
 ];
 
 export const TableBubbleMenu = ({ className }: { className?: string }) => {
-  const { editor } = useTiptapEditorContext();
+  const { editor, activeToolbarPopup } = useTiptapEditorContext();
   const [bgOpen, setBgOpen] = useState(false);
   const [borderOpen, setBorderOpen] = useState(false);
   const [alignOpen, setAlignOpen] = useState(false);
 
-  const shouldShow = useCallback(({ editor }: { editor: Editor }) => editor.isActive("table"), []);
+  const shouldShow = useCallback(({ editor }: { editor: Editor }) => {
+    // Rule 2: Context Priority (Link Active)
+    // If a link is active (even in table), hide table menu to let Link Menu show
+    if (editor.isActive("link")) return false;
+
+    return editor.isActive("table");
+  }, []);
   const appendTo = useCallback(() => document.body, []);
 
-  if (!editor) {
+  // Force unmount if a toolbar popup is active. 
+  // This is necessary because Tiptap's BubbleMenu doesn't always re-evaluate `shouldShow` 
+  // immediately upon React state changes (it waits for editor transactions).
+  if (!editor || activeToolbarPopup) {
     return null;
   }
 
@@ -191,12 +201,14 @@ export const TableBubbleMenu = ({ className }: { className?: string }) => {
                     onClick={() => setCellBackground(color)}
                   />
                 ))}
-                <button
-                  className="te-col-span-full te-mt-2 te-text-[10px] te-py-1 te-border te-border-editor-border te-rounded hover:te-bg-editor-toolbar-hover te-transition-colors"
+                <ActionButton
+                  variant="ghost" 
+                  size="sm"
+                  className="te-col-span-full te-mt-2"
                   onClick={() => setCellBackground(null)}
                 >
                   Reset Background
-                </button>
+                </ActionButton>
               </Popover.Content>
             </Popover.Portal>
           </Popover.Root>
@@ -229,12 +241,14 @@ export const TableBubbleMenu = ({ className }: { className?: string }) => {
                     onClick={() => setCellBorderColor(color)}
                   />
                 ))}
-                <button
-                  className="te-col-span-full te-mt-2 te-text-[10px] te-py-1 te-border te-border-editor-border te-rounded hover:te-bg-editor-toolbar-hover te-transition-colors"
+                <ActionButton
+                  variant="ghost" 
+                  size="sm"
+                  className="te-col-span-full te-mt-2"
                   onClick={() => setCellBorderColor(null)}
                 >
                   Reset Border Color
-                </button>
+                </ActionButton>
               </Popover.Content>
             </Popover.Portal>
           </Popover.Root>

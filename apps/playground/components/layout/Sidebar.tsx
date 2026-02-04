@@ -21,7 +21,7 @@ import {
 
 const drawerWidth = 280;
 
-export type Tab = "rich" | "basic" | "custom" | "notion" | "save" | "dark" | "pastel";
+export type Tab = "rich" | "basic" | "uncontrolled" | "custom" | "notion" | "save" | "dark" | "pastel";
 
 interface SidebarProps {
   activeTab: Tab;
@@ -43,6 +43,12 @@ export const Sidebar = ({ activeTab, onTabChange, mobileOpen, onDrawerToggle }: 
       label: "Basic Editor",
       icon: Type,
       description: "Minimal configuration"
+    },
+    {
+      id: "uncontrolled",
+      label: "Uncontrolled (Fast)",
+      icon: Type,
+      description: "High performance mode"
     },
     {
       id: "custom",

@@ -25,6 +25,16 @@
   outline: none;
 }
 
+/* Link Styles */
+.ProseMirror a {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #0d6efd; /* Bootstrap primary blue or similar */
+}
+.ProseMirror a:hover {
+  color: #0a58ca;
+}
+
 /* Basic sizing */
 .ProseMirror {
   min-height: 15rem;
@@ -33,6 +43,16 @@
 
 /* Remove margin-top from the first paragraph */
 .te-editor-root .ProseMirror > p:first-child {
+  margin-top: 0;
+}
+
+/* Link Cursor Override */
+.ProseMirror a {
+  cursor: text !important;
+}
+
+/* Ensure placeholder is visible */
+.ProseMirror p.is-editor-empty:first-child::before {
   margin-top: 0;
 }
 

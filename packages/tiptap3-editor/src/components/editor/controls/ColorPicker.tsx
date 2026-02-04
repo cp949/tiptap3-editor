@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { cn } from "../../../utils/cn";
+import { ActionButton } from "./ActionButton";
 
 export interface ColorPickerProps {
   color?: string;
@@ -75,13 +76,13 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
   return (
     <div className="te-w-64 te-p-3 te-flex te-flex-col te-gap-3">
         {/* Default Button */}
-      <button
-        type="button"
-        className="te-w-full te-py-1.5 te-px-3 te-border te-border-editor-border te-rounded hover:te-bg-editor-bg-hover te-text-sm te-text-editor-fg"
+      <ActionButton
+        variant="secondary"
+        className="te-w-full"
         onClick={handleClear}
       >
         Default Color
-      </button>
+      </ActionButton>
 
       {/* Theme Colors */}
       <div>

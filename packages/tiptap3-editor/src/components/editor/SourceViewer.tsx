@@ -1,5 +1,6 @@
 import type React from "react";
 import { useEffect, useState } from "react";
+import { ActionButton } from "./controls/ActionButton";
 
 interface SourceViewerProps {
   content: string;
@@ -26,20 +27,18 @@ export const SourceViewer: React.FC<SourceViewerProps> = ({
         onChange={(e) => setValue(e.target.value)}
       />
       <div className="te-flex te-justify-end te-gap-2 te-mt-2">
-        <button
-          type="button"
-          className="te-px-4 te-py-2 te-text-sm te-text-gray-600 hover:te-bg-gray-100 te-rounded"
+        <ActionButton
+          variant="secondary"
           onClick={onCancel}
         >
           Cancel
-        </button>
-        <button
-          type="button"
-          className="te-px-4 te-py-2 te-text-sm te-text-white te-bg-blue-600 hover:te-bg-blue-700 te-rounded"
+        </ActionButton>
+        <ActionButton
+          variant="primary"
           onClick={() => onApply(value)}
         >
           Apply Source
-        </button>
+        </ActionButton>
       </div>
     </div>
   );

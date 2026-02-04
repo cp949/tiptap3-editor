@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Color } from "@tiptap/extension-color";
 import Highlight from "@tiptap/extension-highlight";
-import Link from "@tiptap/extension-link";
+// import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import { TableRow } from "@tiptap/extension-table-row";
 import Table from "../../extensions/table";
+import CustomLink from "../../extensions/link";
 import TableCell from "../../extensions/table/cell";
 import TableHeader from "../../extensions/table/header";
 import TextAlign from "@tiptap/extension-text-align";
 import { TextStyle } from "@tiptap/extension-text-style";
 import { Underline } from "@tiptap/extension-underline";
-import { ReactNodeViewRenderer, useEditor } from "@tiptap/react";
+import { ReactNodeViewRenderer, useEditor, type Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { Placeholder } from "@tiptap/extension-placeholder";
 
@@ -22,6 +23,7 @@ import {
   TiptapEditorControlsGroup,
 } from "./TiptapEditorToolbar";
 import { TableBubbleMenu } from "./TableBubbleMenu";
+import { LinkBubbleMenu } from "./LinkBubbleMenu";
 import { ImageResizer } from "./extensions/ImageResizer";
 import { Control } from "./controls/Control";
 import {
@@ -54,7 +56,10 @@ import {
 
 export interface TiptapEditorProps {
   content?: string;
+  initialContent?: string;
   placeholder?: string;
+  debounceDuration?: number;
+  onCreate?: (editor: Editor) => void;
   onChange?: (html: string) => void;
   onImageUpload?: (file: File) => Promise<string>;
   readOnly?: boolean;
@@ -65,7 +70,10 @@ export interface TiptapEditorProps {
 
 const TiptapEditorRoot: React.FC<TiptapEditorProps> = ({
   content,
+  initialContent,
   placeholder,
+  debounceDuration = 300,
+  onCreate,
   onChange,
   onImageUpload,
   readOnly = false,
@@ -75,6 +83,7 @@ const TiptapEditorRoot: React.FC<TiptapEditorProps> = ({
 }) => {
   const [isSourceMode, setIsSourceMode] = useState(false);
   const [version, setVersion] = useState(0);
+  const [activeToolbarPopup, setActiveToolbarPopup] = useState<string | null>(null);
 
   const onChangeTimerRef = React.useRef<NodeJS.Timeout | null>(null);
 
@@ -88,7 +97,7 @@ const TiptapEditorRoot: React.FC<TiptapEditorProps> = ({
           placeholder: placeholder || "Write something...",
         }),
         Underline,
-        Link.configure({
+        CustomLink.configure({
           openOnClick: false,
           autolink: true,
         }),
@@ -214,7 +223,7 @@ const TiptapEditorRoot: React.FC<TiptapEditorProps> = ({
           return false;
         },
       },
-      content,
+      content: initialContent || content,
       editable: !readOnly,
       onUpdate: ({ editor }) => {
         if (onChange) {
@@ -225,12 +234,35 @@ const TiptapEditorRoot: React.FC<TiptapEditorProps> = ({
           onChangeTimerRef.current = setTimeout(() => {
             const html = editor.getHTML();
             onChange(html);
-          }, 300);
+          }, debounceDuration);
         }
       },
     },
     [],
   );
+
+  useEffect(() => {
+    if (editor && onCreate) {
+      onCreate(editor);
+    }
+  }, [editor, onCreate]);
+
+  /* 
+   * [PERFORMANCE CRITICAL]
+   * Do NOT uncomment the useEffect below unless you fully understand the performance implications.
+   * 
+   * Syncing content prop to editor state via useEffect causes 'getHTML()' serialization on every render.
+   * This leads to severe performance issues, especially with IME (Korean/Chinese) input.
+   * 
+   * Use 'initialContent' for setup and 'onCreate' (callback pattern) for external control.
+   * See ARCHITECTURE.md for details.
+   */
+  // useEffect(() => {
+  //   if (!editor || content === undefined || content === null) return;
+  //   if (editor.getHTML() !== content) {
+  //     editor.commands.setContent(content);
+  //   }
+  // }, [editor, content]);
 
   useEffect(() => {
     return () => {
@@ -270,6 +302,8 @@ const TiptapEditorRoot: React.FC<TiptapEditorProps> = ({
         isReadOnly: readOnly,
         initialContent: content,
         version,
+        activeToolbarPopup,
+        setActiveToolbarPopup,
       }}
     >
       <div
@@ -280,6 +314,8 @@ const TiptapEditorRoot: React.FC<TiptapEditorProps> = ({
         style={style}
       >
         {children}
+        {editor && <TableBubbleMenu />}
+        {editor && <LinkBubbleMenu />}
       </div>
     </TiptapEditorContext.Provider>
   );
@@ -322,4 +358,5 @@ export const TiptapEditor = Object.assign(TiptapEditorRoot, {
   Highlight: HighlightControl,
   HighlightPreset: HighlightPresetControl,
   TableBubbleMenu: TableBubbleMenu,
+  LinkBubbleMenu: LinkBubbleMenu,
 });
