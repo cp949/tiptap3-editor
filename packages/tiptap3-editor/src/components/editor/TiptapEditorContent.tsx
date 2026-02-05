@@ -20,12 +20,17 @@ export const TiptapEditorContent = ({
   if (!editor) {
     return (
       <div
-        className={cn("te-flex-1 te-min-h-[12rem] te-bg-editor-bg", className)}
-        style={style}
+        className={cn("te-flex-1 te-bg-editor-bg te-overflow-y-auto", className)}
+        style={{
+          ...style,
+          height: "var(--te-editor-height)",
+          minHeight: "var(--te-content-min-height)",
+          maxHeight: "var(--te-content-max-height)",
+        }}
       >
         <div className="te-p-4">
           <div
-            className="te-prose te-max-w-none te-outline-none [&_.ProseMirror]:te-min-h-[12rem]"
+            className="te-prose te-max-w-none te-outline-none"
             // biome-ignore lint/security/noDangerouslySetInnerHtml: Initial content rendering required for rich text editor
             dangerouslySetInnerHTML={{ __html: initialContent || "" }}
           />
@@ -36,8 +41,13 @@ export const TiptapEditorContent = ({
 
   return (
     <div
-      className={cn("te-flex-1 te-min-h-[12rem] te-bg-editor-bg", className)}
-      style={style}
+      className={cn("te-flex-1 te-bg-editor-bg te-overflow-y-auto", className)}
+      style={{
+        ...style,
+        height: "var(--te-editor-height)",
+        minHeight: "var(--te-content-min-height)",
+        maxHeight: "var(--te-content-max-height)",
+      }}
     >
       {isSourceMode ? (
         <SourceViewer
@@ -52,7 +62,7 @@ export const TiptapEditorContent = ({
         <div className="te-p-4">
           <EditorContent
             editor={editor}
-            className="te-prose te-max-w-none focus:te-outline-none [&_.ProseMirror]:te-min-h-[12rem] [&_.ProseMirror]:te-outline-none"
+            className="te-prose te-max-w-none focus:te-outline-none [&_.ProseMirror]:te-outline-none"
           />
         </div>
       )}

@@ -37,6 +37,11 @@
   --te-spacing-sm: 0.5rem;        /* 8px */
   --te-spacing-md: 1rem;          /* 16px */
 
+  /* Height & Sizing */
+  --te-editor-height: auto;
+  --te-content-min-height: 12rem;
+  --te-content-max-height: none;
+
   /* Shadows */
   /* Mantine uses flat design (borders), removing shadows by default */
   --te-shadow-sm: none; 

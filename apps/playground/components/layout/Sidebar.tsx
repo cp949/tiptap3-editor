@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -21,7 +20,7 @@ import {
 
 const drawerWidth = 280;
 
-export type Tab = "rich" | "basic" | "uncontrolled" | "custom" | "notion" | "save" | "dark" | "pastel";
+export type Tab = "rich" | "basic" | "uncontrolled" | "custom" | "notion" | "save" | "resizing" | "dark" | "pastel";
 
 interface SidebarProps {
   activeTab: Tab;
@@ -67,6 +66,12 @@ export const Sidebar = ({ activeTab, onTabChange, mobileOpen, onDrawerToggle }: 
       label: "Save Button",
       icon: Layout,
       description: "External save action"
+    },
+    {
+      id: "resizing",
+      label: "Resizing",
+      icon: Layout,
+      description: "Dynamic height adjustment"
     },
     {
         id: "dark",

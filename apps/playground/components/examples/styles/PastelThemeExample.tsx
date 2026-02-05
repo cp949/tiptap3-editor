@@ -1,4 +1,3 @@
-import React from "react";
 import { RichEditor } from "@cp949/tiptap3-editor";
 
 export const PastelThemeExample = () => {

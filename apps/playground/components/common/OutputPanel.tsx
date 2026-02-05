@@ -1,4 +1,4 @@
-import React from "react";
+import type { ReactNode } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -9,7 +9,7 @@ import Chip from "@mui/material/Chip";
 interface OutputPanelProps {
   title: string;
   count?: number;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export const OutputPanel = ({ title, count, children }: OutputPanelProps) => {

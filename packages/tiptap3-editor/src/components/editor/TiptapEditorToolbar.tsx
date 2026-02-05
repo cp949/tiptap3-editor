@@ -5,7 +5,7 @@ export const TiptapEditorToolbar = ({
   children,
   className = "",
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }) => {
   return (
@@ -26,7 +26,7 @@ export const TiptapEditorControlsGroup = ({
   children,
   className = "",
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }) => {
   return (

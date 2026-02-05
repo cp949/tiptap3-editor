@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { TiptapEditor } from "@cp949/tiptap3-editor";
-import { OutputPanel } from "../common/OutputPanel";
+import { TiptapEditor, type Editor } from "@cp949/tiptap3-editor";
 
 export const UncontrolledEditorExample = () => {
-  const [editorRef, setEditorRef] = useState<any>(null);
+  const [editorRef, setEditorRef] = useState<Editor | null>(null);
 
   // 1. Defined initial content only once.
   // This string is passed to Tiptap core during initialization.
@@ -24,6 +23,7 @@ export const UncontrolledEditorExample = () => {
     <div className="te-space-y-6">
       <div className="te-flex te-justify-end">
         <button 
+            type="button"
             onClick={handleReset}
             className="te-px-4 te-py-2 te-bg-blue-600 te-text-white te-rounded-md te-text-sm hover:te-bg-blue-700 te-transition-colors"
         >

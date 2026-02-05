@@ -1,4 +1,3 @@
-import React from "react";
 import { TiptapEditor } from "@cp949/tiptap3-editor";
 
 const content = `

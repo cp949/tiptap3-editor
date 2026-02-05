@@ -112,6 +112,25 @@ function App() {
 />
 ```
 
+### 3.2. 에디터 높이 조절 (Height Control)
+
+에디터의 전체 높이나 바닥글이 보일 때까지의 최소/최대 높이를 props로 간편하게 조절할 수 있습니다.
+
+```tsx
+<RichEditor
+  // 고정 높이 설정 (숫자는 px, 문자열은 rem, vh 등 가능)
+  height={500}
+  // 최소/최대 높이 제한
+  minHeight="20rem"
+  maxHeight="80vh"
+/>
+```
+
+- **height**: 에디터 전체 컨테이너의 높이입니다.
+- **minHeight**: 컨텐츠 영역의 최소 높이입니다.
+- **maxHeight**: 컨텐츠 영역의 최대 높이입니다. 설정한 높이를 넘어가면 자동으로 내부 스크롤이 발생합니다.
+
+
 ---
 
 ## 🛠 4. 유용한 에디터 메서드 (Useful Methods)

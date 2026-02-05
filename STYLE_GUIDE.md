@@ -25,7 +25,12 @@
   --te-border-focus: #228be6; /* 활성화 시 라인 색상 */
   --te-radius: 6px; /* 둥근 모서리 (0px로 하면 직각) */
 
-  /* [4] 텍스트 (Typography) */
+  /* [4] 높이 및 크기 (Sizing) */
+  --te-editor-height: auto; /* 에디터 전체 높이 (800px, 80vh 등) */
+  --te-content-min-height: 12rem; /* 최소 높이 */
+  --te-content-max-height: none; /* 최대 높이 (넘치면 스크롤 발생) */
+
+  /* [5] 텍스트 (Typography) */
   --te-text-primary: #212529; /* 기본 텍스트 */
   --te-text-muted: #adb5bd; /* 비활성 텍스트 */
 }
@@ -38,7 +43,7 @@
 | Layer       | 범위                  | 방법                      | 추천 상황                                           |
 | :---------- | :-------------------- | :------------------------ | :-------------------------------------------------- |
 | **Level 1** | **테마 (Theme)**      | CSS 변수 재정의           | 브랜드 컬러, 다크 모드, 둥근 모서리 변경 시         |
-| **Level 2** | **레이아웃 (Layout)** | `className` Prop 주입     | 테두리 제거, 그림자 추가, 패딩 조절 시              |
+| **Level 2** | **레이아웃 (Layout)** | `className` 및 Sizing Props | 테두리 제거, 그림자 추가, 높이 조절 시              |
 | **Level 3** | **컨텐츠 (Content)**  | `.ProseMirror` CSS 타겟팅 | 폰트 사이즈, 줄 간격, 제목 스타일 등 본문 디자인 시 |
 
 ---

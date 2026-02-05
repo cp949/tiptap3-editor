@@ -1,8 +1,7 @@
 "use client";
 
 import "@cp949/tiptap3-editor/style.css";
-import React, { useState } from "react";
-import Box from "@mui/material/Box";
+import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
@@ -21,7 +20,8 @@ import { NotionStyleExample } from "../components/examples/styles/NotionStyleExa
 import { DarkThemeExample } from "../components/examples/styles/DarkThemeExample";
 import { PastelThemeExample } from "../components/examples/styles/PastelThemeExample";
 import { UncontrolledEditorExample } from "../components/examples/UncontrolledEditorExample";
-import { type Tab } from "../components/layout/Sidebar";
+import { ResizingExample } from "../components/examples/ResizingExample";
+import type { Tab } from "../components/layout/Sidebar";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<Tab>("rich");
@@ -62,6 +62,12 @@ export default function Home() {
       description: "Demonstrates how to access the editor content externally when a button is clicked.",
       componentName: "<SaveButtonExample />",
       color: "info",
+    },
+    resizing: {
+      title: "Resizing Example",
+      description: "Demonstrates how to toggle editor height between different sizes using the height prop.",
+      componentName: "<RichEditor height={...} />",
+      color: "primary",
     },
     dark: {
       title: "Dark Mode",
@@ -125,6 +131,7 @@ export default function Home() {
                 {activeTab === "custom" && <CustomToolbarExample />}
                 {activeTab === "notion" && <NotionStyleExample />}
                 {activeTab === "save" && <SaveButtonExample />}
+                {activeTab === "resizing" && <ResizingExample />}
                 {activeTab === "dark" && <DarkThemeExample />}
                 {activeTab === "pastel" && <PastelThemeExample />}
             </CardContent>

@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import { type ReactNode, useState } from "react";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import { Menu } from "lucide-react";
-import { Sidebar, Tab } from "./Sidebar";
+import { Sidebar, type Tab } from "./Sidebar";
 
 const drawerWidth = 280;
 
 interface AppShellProps {
-  children: React.ReactNode;
+  children: ReactNode;
   activeTab: Tab;
   onTabChange: (tab: Tab) => void;
 }

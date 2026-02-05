@@ -58,6 +58,9 @@ export interface TiptapEditorProps {
   content?: string;
   initialContent?: string;
   placeholder?: string;
+  height?: string | number;
+  minHeight?: string | number;
+  maxHeight?: string | number;
   debounceDuration?: number;
   onCreate?: (editor: Editor) => void;
   onChange?: (html: string) => void;
@@ -72,6 +75,9 @@ const TiptapEditorRoot: React.FC<TiptapEditorProps> = ({
   content,
   initialContent,
   placeholder,
+  height,
+  minHeight,
+  maxHeight,
   debounceDuration = 300,
   onCreate,
   onChange,
@@ -311,7 +317,15 @@ const TiptapEditorRoot: React.FC<TiptapEditorProps> = ({
           "te-editor-root te-rounded te-border te-border-solid te-border-editor-border te-w-full te-flex te-flex-col te-bg-editor-bg te-overflow-hidden focus-within:te-border-editor-border-focus",
           className,
         )}
-        style={style}
+        style={{
+          ...style,
+          height: "var(--te-editor-height)",
+          "--te-editor-height": typeof height === "number" ? `${height}px` : height,
+          "--te-content-min-height":
+            typeof minHeight === "number" ? `${minHeight}px` : minHeight,
+          "--te-content-max-height":
+            typeof maxHeight === "number" ? `${maxHeight}px` : maxHeight,
+        } as React.CSSProperties}
       >
         {children}
         {editor && <TableBubbleMenu />}

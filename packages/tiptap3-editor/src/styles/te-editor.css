@@ -18,6 +18,7 @@
     sans-serif;
   line-height: 1.5;
   color: inherit;
+  height: var(--te-editor-height, auto);
 }
 
 /* Ensure Tiptap editor has focus outline */
@@ -37,8 +38,10 @@
 
 /* Basic sizing */
 .ProseMirror {
-  min-height: 15rem;
+  min-height: var(--te-content-min-height, 12rem);
+  max-height: var(--te-content-max-height, none);
   padding: 1rem;
+  overflow-y: auto;
 }
 
 /* Remove margin-top from the first paragraph */
