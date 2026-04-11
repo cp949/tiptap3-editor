@@ -91,7 +91,7 @@ const TiptapEditorRoot: React.FC<TiptapEditorProps> = ({
   const [version, setVersion] = useState(0);
   const [activeToolbarPopup, setActiveToolbarPopup] = useState<string | null>(null);
 
-  const onChangeTimerRef = React.useRef<NodeJS.Timeout | null>(null);
+  const onChangeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const editor = useEditor(
     {
