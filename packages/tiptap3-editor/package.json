@@ -1,6 +1,6 @@
 {
   "name": "@cp949/tiptap3-editor",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Tiptap 3.x based React Editor Library",
   "type": "module",
   "author": "cp949",
@@ -44,6 +44,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.11",
+    "@tailwindcss/postcss": "^4.2.2",
     "@repo/typescript-config": "workspace:*",
     "@tailwindcss/typography": "^0.5.19",
     "@tiptap/extension-bubble-menu": "^3.22.3",
