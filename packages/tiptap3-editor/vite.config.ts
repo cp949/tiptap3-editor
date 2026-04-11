@@ -19,7 +19,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      name: "TiptapEditor",
+      formats: ["es"],
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
@@ -29,13 +29,6 @@ export default defineConfig({
         /^@tiptap\/.*/, // Don't bundle tiptap core/extensions
         "tailwindcss",
       ],
-      output: {
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-          "@tiptap/react": "TiptapReact",
-        },
-      },
     },
     cssCodeSplit: false, // Bundle CSS into one file (dist/style.css) if possible, or just let Vite handle it.
     // Actually with lib mode, it usually creates style.css
