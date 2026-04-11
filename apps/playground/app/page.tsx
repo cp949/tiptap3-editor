@@ -88,9 +88,18 @@ export default function Home() {
   return (
     <AppShell activeTab={activeTab} onTabChange={setActiveTab}>
       <Stack spacing={4} sx={{ mb: 4 }}>
-        <Grid container justifyContent="space-between" alignItems="flex-start" spacing={2}>
+        <Grid
+          container
+          spacing={2}
+          sx={{ justifyContent: "space-between", alignItems: "flex-start" }}
+        >
             <Grid size={{ xs: 12, md: 8 }}>
-                <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom>
+                <Typography
+                  variant="h4"
+                  component="h1"
+                  gutterBottom
+                  sx={{ fontWeight: "bold" }}
+                >
                     {currentInfo.title}
                 </Typography>
                 <Typography variant="body1" color="text.secondary">
@@ -98,7 +107,11 @@ export default function Home() {
                 </Typography>
             </Grid>
             <Grid size={{ xs: 12, md: 4 }}>
-                <Stack direction="row" spacing={1} justifyContent={{ md: 'flex-end' }}>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  sx={{ justifyContent: { md: "flex-end" } }}
+                >
                      <Button variant="outlined" startIcon={<Code size={16} />}>
                         View Code
                      </Button>
@@ -109,7 +122,7 @@ export default function Home() {
             </Grid>
         </Grid>
 
-        <Stack direction="row" spacing={1} alignItems="center">
+        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
             <Chip 
                 label={currentInfo.componentName} 
                 color={currentInfo.color} 

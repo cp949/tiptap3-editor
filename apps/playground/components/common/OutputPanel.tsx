@@ -18,7 +18,7 @@ export const OutputPanel = ({ title, count, children }: OutputPanelProps) => {
       <CardHeader
         title={
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <Typography variant="subtitle2" fontWeight="bold">
+            <Typography variant="subtitle2" sx={{ fontWeight: "bold" }}>
               {title}
             </Typography>
             {count !== undefined && (

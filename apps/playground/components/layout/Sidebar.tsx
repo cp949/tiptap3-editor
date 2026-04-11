@@ -103,8 +103,7 @@ export const Sidebar = ({ activeTab, onTabChange, mobileOpen, onDrawerToggle }: 
       <Box sx={{ overflow: "auto", flex: 1, py: 2 }}>
         <Typography
             variant="overline"
-            display="block"
-            sx={{ px: 3, mb: 1, color: "text.secondary", fontWeight: 600 }}
+            sx={{ display: "block", px: 3, mb: 1, color: "text.secondary", fontWeight: 600 }}
         >
             Examples
         </Typography>
@@ -136,8 +135,10 @@ export const Sidebar = ({ activeTab, onTabChange, mobileOpen, onDrawerToggle }: 
                   <ListItemText 
                     primary={item.label} 
                     secondary={item.description}
-                    primaryTypographyProps={{ variant: 'body2', fontWeight: 500 }}
-                    secondaryTypographyProps={{ variant: 'caption', noWrap: true }}
+                    slotProps={{
+                      primary: { variant: "body2", sx: { fontWeight: 500 } },
+                      secondary: { variant: "caption", noWrap: true },
+                    }}
                   />
                 </ListItemButton>
               </ListItem>
@@ -152,7 +153,10 @@ export const Sidebar = ({ activeTab, onTabChange, mobileOpen, onDrawerToggle }: 
                 <ListItemIcon sx={{ minWidth: 40 }}>
                     <BookOpen size={18} />
                 </ListItemIcon>
-                <ListItemText primary="Documentation" primaryTypographyProps={{ variant: 'body2' }} />
+                <ListItemText
+                  primary="Documentation"
+                  slotProps={{ primary: { variant: "body2" } }}
+                />
             </ListItemButton>
          </ListItem>
          <ListItem disablePadding>
@@ -160,7 +164,10 @@ export const Sidebar = ({ activeTab, onTabChange, mobileOpen, onDrawerToggle }: 
                 <ListItemIcon sx={{ minWidth: 40 }}>
                     <Github size={18} />
                 </ListItemIcon>
-                <ListItemText primary="GitHub Repository" primaryTypographyProps={{ variant: 'body2' }} />
+                <ListItemText
+                  primary="GitHub Repository"
+                  slotProps={{ primary: { variant: "body2" } }}
+                />
             </ListItemButton>
          </ListItem>
       </List>
