@@ -43,7 +43,7 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.14",
+    "@biomejs/biome": "2.4.11",
     "@repo/typescript-config": "workspace:*",
     "@tailwindcss/typography": "^0.5.19",
     "@tiptap/extension-bubble-menu": "^3.22.3",
@@ -56,15 +56,15 @@
     "@tiptap/pm": "^3.22.3",
     "@tiptap/react": "^3.22.3",
     "@tiptap/starter-kit": "^3.22.3",
-    "@types/node": "^25.2.1",
-    "@types/react": "19.2.13",
+    "@types/node": "^25.6.0",
+    "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
-    "autoprefixer": "^10.4.24",
-    "postcss": "^8.5.6",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "tailwindcss": "^3.4.19",
+    "autoprefixer": "^10.4.27",
+    "postcss": "^8.5.9",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "tailwindcss": "^4.2.2",
     "typescript": "6.0.2",
     "vite": "^8.0.8",
     "vite-plugin-dts": "^4.5.4"
@@ -79,7 +79,7 @@
     "@tiptap/extension-text-align": "^3.22.3",
     "@tiptap/extension-text-style": "^3.22.3",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.563.0",
-    "tailwind-merge": "^3.4.0"
+    "lucide-react": "^1.8.0",
+    "tailwind-merge": "^3.5.0"
   }
 }
