@@ -17,6 +17,11 @@
     "turbo": "^2.9.6",
     "typescript": "6.0.2"
   },
+  "pnpm": {
+    "overrides": {
+      "rollup": "4.59.0"
+    }
+  },
   "packageManager": "pnpm@10.28.2",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
