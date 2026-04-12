@@ -1,6 +1,6 @@
 {
   "name": "@cp949/tiptap3-editor",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Tiptap 3.x based React Editor Library",
   "type": "module",
   "author": "cp949",
@@ -24,7 +24,8 @@
   "scripts": {
     "clean:legacy-dist": "rm -f dist/index.umd.js dist/index.cjs",
     "dev": "vite build --watch",
-    "build": "pnpm clean:legacy-dist && node ../../scripts/sync-pkg-docs.js && tsc && vite build",
+    "build": "pnpm clean:legacy-dist && node ../../scripts/sync-pkg-docs.js && tsc && vite build && pnpm check:dist-esm",
+    "check:dist-esm": "bash -lc 'if rg -n \"require\\\\(|typeof require|createRequire|rolldown/runtime\" dist -S; then echo \"Unexpected CommonJS runtime found in dist\" >&2; exit 1; fi'",
     "release": "pnpm build && pnpm publish --access public --no-git-checks",
     "preview": "vite preview",
     "lint": "biome lint .",
