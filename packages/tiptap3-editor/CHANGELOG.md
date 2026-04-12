@@ -1,5 +1,15 @@
 # 변경 로그 (Changelog)
 
+## 1.0.7
+
+### Patch Changes
+
+- Fix the published ESM bundle so Next.js 16 client builds no longer hit runtime `require` errors.
+
+  - externalize direct and peer dependencies during the package build
+  - keep Radix and related dependency graphs out of `dist/index.es.js`
+  - fail the build if CommonJS runtime helpers reappear in published output
+
 `@cp949/tiptap3-editor`의 모든 주요 변경 사항은 이 파일에 기록됩니다.
 
 ## [Unreleased]
