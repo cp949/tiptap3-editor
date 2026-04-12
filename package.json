@@ -5,14 +5,17 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
     "dev": "turbo run dev",
-    "release": "pnpm --filter @cp949/tiptap3-editor run release",
+    "release": "changeset publish",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint -- --write --unsafe",
     "format": "biome format --write .",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.30.0",
     "@biomejs/biome": "2.4.11",
     "turbo": "^2.9.6",
     "typescript": "6.0.2"
