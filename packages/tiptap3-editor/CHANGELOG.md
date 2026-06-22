@@ -1,5 +1,12 @@
 # 변경 로그 (Changelog)
 
+## 1.0.8
+
+### Patch Changes
+
+- Fix table toolbar popovers so alignment, text color, and cell background controls open above the table bubble menu with stable viewport collision padding and z-index.
+- Keep the published package metadata aligned with the generated ESM and declaration output paths.
+
 ## 1.0.7
 
 ### Patch Changes

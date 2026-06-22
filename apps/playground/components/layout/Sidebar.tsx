@@ -14,9 +14,9 @@ import {
   Layout, 
   Type, 
   Settings, 
-  Github, 
   BookOpen 
 } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 
 const drawerWidth = 280;
 
@@ -162,7 +162,7 @@ export const Sidebar = ({ activeTab, onTabChange, mobileOpen, onDrawerToggle }: 
          <ListItem disablePadding>
             <ListItemButton component="a" href="#" sx={{ borderRadius: 2 }}>
                 <ListItemIcon sx={{ minWidth: 40 }}>
-                    <Github size={18} />
+                    <FaGithub size={18} />
                 </ListItemIcon>
                 <ListItemText
                   primary="GitHub Repository"

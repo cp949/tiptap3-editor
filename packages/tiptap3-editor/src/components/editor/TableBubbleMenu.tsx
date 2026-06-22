@@ -139,8 +139,11 @@ export const TableBubbleMenu = ({ className }: { className?: string }) => {
             </Popover.Trigger>
             <Popover.Portal>
               <Popover.Content
-                className="te-z-[100] te-p-1 te-bg-editor-toolbar te-border te-border-editor-border te-rounded te-shadow-xl te-grid te-grid-cols-3 te-gap-1 te-animate-in te-fade-in te-zoom-in-95"
-                sideOffset={5}
+                className="te-z-[10000] te-p-1 te-bg-editor-toolbar te-border te-border-editor-border te-rounded te-shadow-xl te-grid te-grid-cols-3 te-gap-1 te-animate-in te-fade-in te-zoom-in-95"
+                side="top"
+                align="center"
+                sideOffset={8}
+                collisionPadding={8}
               >
                 {ALIGNMENTS.map((align) => (
                   <button
@@ -231,8 +234,11 @@ export const TableBubbleMenu = ({ className }: { className?: string }) => {
             </Popover.Trigger>
             <Popover.Portal>
               <Popover.Content
-                className="te-z-[100] te-p-2 te-bg-editor-toolbar te-border te-border-editor-border te-rounded te-shadow-xl te-grid te-grid-cols-10 te-gap-1 te-animate-in te-fade-in te-zoom-in-95"
-                sideOffset={5}
+                className="te-z-[10000] te-p-2 te-bg-editor-toolbar te-border te-border-editor-border te-rounded te-shadow-xl te-grid te-grid-cols-10 te-gap-1 te-animate-in te-fade-in te-zoom-in-95"
+                side="top"
+                align="center"
+                sideOffset={8}
+                collisionPadding={8}
               >
                 {COLORS.map((color) => (
                   <button
@@ -275,8 +281,11 @@ export const TableBubbleMenu = ({ className }: { className?: string }) => {
             </Popover.Trigger>
             <Popover.Portal>
               <Popover.Content
-                className="te-z-[100] te-p-2 te-bg-editor-toolbar te-border te-border-editor-border te-rounded te-shadow-xl te-grid te-grid-cols-10 te-gap-1 te-animate-in te-fade-in te-zoom-in-95"
-                sideOffset={5}
+                className="te-z-[10000] te-p-2 te-bg-editor-toolbar te-border te-border-editor-border te-rounded te-shadow-xl te-grid te-grid-cols-10 te-gap-1 te-animate-in te-fade-in te-zoom-in-95"
+                side="top"
+                align="center"
+                sideOffset={8}
+                collisionPadding={8}
               >
                 {COLORS.map((color) => (
                   <button

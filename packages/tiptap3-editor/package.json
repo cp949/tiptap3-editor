@@ -1,13 +1,13 @@
 {
   "name": "@cp949/tiptap3-editor",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Tiptap 3.x based React Editor Library",
   "type": "module",
   "author": "cp949",
   "license": "ISC",
   "main": "dist/index.es.js",
   "module": "dist/index.es.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/src/index.d.ts",
   "files": [
     "dist"
   ],
@@ -25,7 +25,7 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/src/index.d.ts",
       "import": "./dist/index.es.js"
     },
     "./style.css": "./dist/tiptap3-editor.css"
@@ -55,7 +55,6 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.11",
-    "@tailwindcss/postcss": "^4.2.2",
     "@repo/typescript-config": "workspace:*",
     "@tailwindcss/typography": "^0.5.19",
     "@tiptap/extension-bubble-menu": "^3.22.3",
@@ -76,7 +75,7 @@
     "postcss": "^8.5.9",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "tailwindcss": "^4.2.2",
+    "tailwindcss": "^3.4.19",
     "typescript": "6.0.2",
     "vite": "^8.0.8",
     "vite-plugin-dts": "^4.5.4"
@@ -91,7 +90,7 @@
     "@tiptap/extension-text-align": "^3.22.3",
     "@tiptap/extension-text-style": "^3.22.3",
     "clsx": "^2.1.1",
-    "lucide-react": "^1.8.0",
+    "lucide-react": "^1.21.0",
     "tailwind-merge": "^3.5.0"
   }
 }
